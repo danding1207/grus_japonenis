@@ -77,6 +77,8 @@ public interface MainContract {
 
         abstract public void onBackPressed();
 
+        abstract void onDestroy();
+
 //
 //        void loadTasks(boolean forceUpdate);
 //

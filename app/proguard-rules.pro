@@ -20,3 +20,8 @@
 -keep public class com.tencent.bugly.**{*;}
 -keep class com.dodola.rocoofix.** {*;}
 -keep class com.lody.legend.** {*;}
+
+-dontwarn com.amap.api.**
+-keep class com.amap.api.location.**{*;}
+-keep class com.amap.api.fence.**{*;}
+-keep class com.autonavi.aps.amapapi.model.**{*;}

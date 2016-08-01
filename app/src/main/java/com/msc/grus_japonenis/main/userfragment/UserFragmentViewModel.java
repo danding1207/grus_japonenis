@@ -40,6 +40,7 @@ public class UserFragmentViewModel extends BaseObservable {
 
     private final UserFragmentPresenter mPresenter;
     private User user;
+    private Unread unread;
     private Context mContext;
     private boolean isUserFragmentShow;
 
@@ -80,12 +81,13 @@ public class UserFragmentViewModel extends BaseObservable {
 
     @Bindable
     public Drawable getMessageIcon() {
-        return user == null || (user.getData().getUnread_notifications_count().getComments() +
+        return user == null || unread == null || (user.getData().getUnread_notifications_count().getComments() +
                 user.getData().getUnread_notifications_count().getFavorites() +
                 user.getData().getUnread_notifications_count().getFollows() +
                 user.getData().getUnread_notifications_count().getLikes() +
-                user.getData().getUnread_notifications_count().getSystems() == 0) ?
-                ContextCompat.getDrawable(mContext, R.drawable.menu_message_n) :
+                user.getData().getUnread_notifications_count().getSystems() == 0)
+                || (unread.getComments() + unread.getFavorites() + unread.getFollows() + unread.getLikes() + unread.getSystems() == 0)
+                ? ContextCompat.getDrawable(mContext, R.drawable.menu_message_n) :
                 ContextCompat.getDrawable(mContext, R.drawable.menu_message_h);
     }
 
@@ -95,12 +97,8 @@ public class UserFragmentViewModel extends BaseObservable {
     }
 
 
-    public void setUnread(Unread result) {
-        user.getData().getUnread_notifications_count().setComments(result.getComments());
-        user.getData().getUnread_notifications_count().setFavorites(result.getFavorites());
-        user.getData().getUnread_notifications_count().setFollows(result.getFollows());
-        user.getData().getUnread_notifications_count().setLikes(result.getLikes());
-        user.getData().getUnread_notifications_count().setSystems(result.getSystems());
+    public void setUnread(Unread unread) {
+        this.unread = unread;
         notifyPropertyChanged(BR.messageIcon);
     }
 }

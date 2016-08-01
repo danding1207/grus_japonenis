@@ -12,7 +12,6 @@ buildscript {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.5'
         classpath "net.rdrei.android.buildtimetracker:gradle-plugin:0.8.+"
-//        classpath 'com.dodola:rocoofix:1.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -41,7 +40,6 @@ ext {
     targetSdkVersion = 22
     compileSdkVersion = 23
     buildToolsVersion = '23.0.2'
-
     // App dependencies
     supportLibraryVersion = '23.4.0'
     guavaVersion = '18.0'
@@ -66,9 +64,4 @@ ext {
     observableScrollViewVersion = '1.6.0'
     glideViewVersion = '3.7.0'
     lintVersion = '24.5.0'
-//    rocoofixVersion = '1.0'
 }
-
-//configurations.all {
-//    resolutionStrategy.force "com.android.support:support-annotations:$rootProject.supportLibraryVersion"
-//}

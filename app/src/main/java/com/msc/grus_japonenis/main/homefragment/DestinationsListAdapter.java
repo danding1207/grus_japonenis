@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
@@ -26,6 +27,7 @@ import com.msc.lib.net.bean.Destinations;
 import com.msc.lib.net.bean.DestinationsNearby;
 import com.msc.lib.net.listener.OnTapListener;
 import com.msc.lib.utils.UnitConversionUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +66,7 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
     public int getItemViewType(int position) {
         if (position == 0) {
             return HEADERVIEWHOLDER;
-        } else if(position == 1) {
+        } else if (position == 1) {
             return NEARBYVIEWHOLDER;
         } else {
             if (list != null && list.size() > 0) {
@@ -104,7 +106,8 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
         if (holder instanceof HeaderViewHolder) {
             ((HeaderViewHolder) (holder)).bind(adverts);
         } else if (holder instanceof NearbyViewHolder) {
-            ((NearbyViewHolder) (holder)).bind(destinationsNearby);
+            if (destinationsNearby != null)
+                ((NearbyViewHolder) (holder)).bind(destinationsNearby);
         } else if (holder instanceof TitleViewHolder) {
             ((TitleViewHolder) (holder)).bind(new Destinations.DataEntity.DestinationsEntity[]{list.get(3 * (position - 2)), list.get(3 * (position - 2) + 1), list.get(3 * (position - 2) + 2)});
         } else if (holder instanceof NormalViewHolder) {
@@ -209,6 +212,7 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         public void bind(DestinationsNearby destinationsNearby) {
             destinationsListItemNearbyBinding.setPresenter(homeFragmentPresenter);
+
             destinationsListItemNearbyBinding.setArray(new DestinationsNearby.DataBean[]{destinationsNearby.getData().get(0), destinationsNearby.getData().get(1), destinationsNearby.getData().get(2)});
         }
     }

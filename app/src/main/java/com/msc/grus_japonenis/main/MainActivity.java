@@ -33,7 +33,14 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         activityMainBinding = DataBindingUtil.setContentView(this, setContentViewIds());
         activityMainBinding.setMainViewModel(mViewModel);
         mPresenter.attachView(this);
+        mPresenter.start();
         initView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.onDestroy();
     }
 
     @Override

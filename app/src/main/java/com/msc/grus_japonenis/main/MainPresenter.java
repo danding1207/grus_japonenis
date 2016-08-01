@@ -187,6 +187,12 @@ public class MainPresenter extends MainContract.Presenter<MainContract.View> imp
     }
 
     @Override
+    void onDestroy() {
+        mLocationClient.stopLocation();//停止定位
+        mLocationClient.onDestroy();//销毁定位客户端
+    }
+
+    @Override
     public void onLocationChanged(AMapLocation amapLocation) {
         if (amapLocation != null) {
             if (amapLocation.getErrorCode() == 0) {
