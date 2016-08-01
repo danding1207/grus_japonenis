@@ -9,7 +9,8 @@
     <color name="calendar_header">#ff999999</color>
     <color name="circle_background">#fff2f2f2</color>
     <color name="darker_blue">#ff0099cc</color>
-    <color name="date_picker_text_normal">#ffdddddd</color>
+    <color name="date_picker_text_gray">#ffdddddd</color>
+    <color name="date_picker_text_normal">#ff999999</color>
     <color name="date_picker_view_animator">#2D9BD8</color>
     <color name="done_text_color_disabled">#ffcccccc</color>
     <color name="done_text_color_normal">#ff333333</color>
