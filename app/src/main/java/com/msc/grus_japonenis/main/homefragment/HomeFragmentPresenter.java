@@ -163,6 +163,13 @@ public class HomeFragmentPresenter extends HomeFragmentContract.Presenter<HomeFr
         mActivity.startActivity(intent);
     }
 
+
+    public void onClickMoreNearby() {
+
+        SnackbarUtils.toast(mActivity.getActivityMainBinding().mainContent, "点击了更多附近目的地", Snackbar.LENGTH_SHORT);
+
+    }
+
     @Override
     public void onItemClick(int position) {
         SnackbarUtils.toast(mActivity.getActivityMainBinding().mainContent, "点击了第" + position + "页", Snackbar.LENGTH_SHORT);

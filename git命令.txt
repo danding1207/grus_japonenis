@@ -2,3 +2,16 @@
 （2）git commit -m 'date_picker_color'      //提交到本地库 （-m 后面的是提交的注释）
 （3）git push -u origin master              //同步远程库
 （4）git pull origin master                 //从远程库拉取 
+（5）git branch -a                          //查看当前分支（ 包括远程）
+（6）git branch [branchName]                //新建一个分支，branchName是分支名
+（7）git checkout [branchName]              //切换到该分支，branchName是分支名
+（8）git checkout -b [branchName] [fromBranchName]              //生成新的Branch，后面这个[fromBranchName] 就是你想要从哪个分支生成新的分支，不写则是当前分支
+（9）cat .git/HEAD                          //查看指向的分支名
+（10）git merge [branchName]                //合并分支，前提是指向master分支
+
+
+
+
+
+
+
