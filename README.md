@@ -1,29 +1,29 @@
-# Grus Japonenis ¿ò¼ÜËµÃ÷
+# Grus Japonenis
 
-±êÇ©£¨¿Õ¸ñ·Ö¸ô£©£º MVVM RXJAVA LINT DEAGGER2
+æ ‡ç­¾ï¼ˆç©ºæ ¼åˆ†éš”ï¼‰ï¼š MVVM RXJAVA LINT DEAGGER2
 
 ---
 
 ## 1,Lint
-    Android LintÊÇGoogleÌá¹©¸øAndroid¿ª·¢ÕßµÄ¾²Ì¬´úÂë¼ì²é¹¤¾ß¡£Ê¹ÓÃLint¶ÔAndroid¹¤³Ì´úÂë½øĞĞÉ¨ÃèºÍ¼ì²é£¬¿ÉÒÔ·¢ÏÖ´úÂëÇ±ÔÚµÄÎÊÌâ£¬ÌáĞÑ³ÌĞòÔ±¼°ÔçĞŞÕı¡£
+    Android Lintæ˜¯Googleæä¾›ç»™Androidå¼€å‘è€…çš„é™æ€ä»£ç æ£€æŸ¥å·¥å…·ã€‚ä½¿ç”¨Lintå¯¹Androidå·¥ç¨‹ä»£ç è¿›è¡Œæ‰«æå’Œæ£€æŸ¥ï¼Œå¯ä»¥å‘ç°ä»£ç æ½œåœ¨çš„é—®é¢˜ï¼Œæé†’ç¨‹åºå‘˜åŠæ—©ä¿®æ­£ã€‚
 
-### 1£¬Ô­Ê¼µÄ×Ô¶¨ÒåLint´úÂëÎ»ÓÚ **lib.lintrules** Ä¿Â¼£¬ÕâÊÇÒ»¸öJavaÏîÄ¿¡£
+### 1ï¼ŒåŸå§‹çš„è‡ªå®šä¹‰Lintä»£ç ä½äº **lib.lintrules** ç›®å½•ï¼Œè¿™æ˜¯ä¸€ä¸ªJavaé¡¹ç›®ã€‚
 
- 1. DetectorÀà¸ºÔğÉ¨Ãè´úÂë£¬·¢ÏÖÎÊÌâ²¢±¨¸æ£»
- 2. IssueÀàÓÉDetector·¢ÏÖ²¢±¨¸æ£¬ÊÇAndroid³ÌĞò´úÂë¿ÉÄÜ´æÔÚµÄbug£»
- 3. CategoryÀàÖ¸¶¨ÎÊÌâµÄÀà±ğ£»
- 4. IssueRegistryÀàÌá¹©ĞèÒª±»¼ì²âµÄIssueÁĞ±í¡£
+ 1. Detectorç±»è´Ÿè´£æ‰«æä»£ç ï¼Œå‘ç°é—®é¢˜å¹¶æŠ¥å‘Šï¼›
+ 2. Issueç±»ç”±Detectorå‘ç°å¹¶æŠ¥å‘Šï¼Œæ˜¯Androidç¨‹åºä»£ç å¯èƒ½å­˜åœ¨çš„bugï¼›
+ 3. Categoryç±»æŒ‡å®šé—®é¢˜çš„ç±»åˆ«ï¼›
+ 4. IssueRegistryç±»æä¾›éœ€è¦è¢«æ£€æµ‹çš„Issueåˆ—è¡¨ã€‚
 
-ÔÚprojectÄ¿Â¼ÏÂÖ´ĞĞ **gradlew lib.lintrules:assemble**£¨windows£©»ò **./gradlew lib.lintrules:assemble**£¨Linux£©ÃüÁî£¬ Éú³ÉjarÎÄ¼şµ½ **lib.lintrules/build/libs/lib.lintrules.jar**Â·¾¶¡£
+åœ¨projectç›®å½•ä¸‹æ‰§è¡Œ **gradlew lib.lintrules:assemble**ï¼ˆwindowsï¼‰æˆ– **./gradlew lib.lintrules:assemble**ï¼ˆLinuxï¼‰å‘½ä»¤ï¼Œ ç”Ÿæˆjaræ–‡ä»¶åˆ° **lib.lintrules/build/libs/lib.lintrules.jar**è·¯å¾„ã€‚
 
 
-### 2£¬**lib.lintrules-jar**ÊÇAndroid LibraryÏîÄ¿£¬¸ºÔğ½«jarÎÄ¼şÉú³ÉaarÎÄ¼ş¡£
+### 2ï¼Œ**lib.lintrules-jar**æ˜¯Android Libraryé¡¹ç›®ï¼Œè´Ÿè´£å°†jaræ–‡ä»¶ç”Ÿæˆaaræ–‡ä»¶ã€‚
 
-ÔÚprojectÄ¿Â¼ÏÂÖ´ĞĞ **gradlew lib.lintrules-jar:assemble**£¨windows£©»ò **./gradlew lib.lintrules-jar:assemble**£¨Linux£©ÃüÁî£¬ Éú³ÉaarÎÄ¼şµ½ **lib.lintrules/build/outputs/aar/lib.lintrules-jar-release.aar**Â·¾¶¡£
+åœ¨projectç›®å½•ä¸‹æ‰§è¡Œ **gradlew lib.lintrules-jar:assemble**ï¼ˆwindowsï¼‰æˆ– **./gradlew lib.lintrules-jar:assemble**ï¼ˆLinuxï¼‰å‘½ä»¤ï¼Œ ç”Ÿæˆaaræ–‡ä»¶åˆ° **lib.lintrules/build/outputs/aar/lib.lintrules-jar-release.aar**è·¯å¾„ã€‚
 
-### 3£¬**lib.lintrules-aar**ÊÇµ¼Èëaar¿â£¬ÆäËûmoduleÒÀÀµÕâ¸ö¿â
+### 3ï¼Œ**lib.lintrules-aar**æ˜¯å¯¼å…¥aaråº“ï¼Œå…¶ä»–moduleä¾èµ–è¿™ä¸ªåº“
 
-½«ÉÏÃæÉú³ÉµÄaarÎÄ¼ş¸´ÖÆµ½ **lib.lintrules-aar/lib.lintrules-jar-release.aar**Â·¾¶¡£
+å°†ä¸Šé¢ç”Ÿæˆçš„aaræ–‡ä»¶å¤åˆ¶åˆ° **lib.lintrules-aar/lib.lintrules-jar-release.aar**è·¯å¾„ã€‚
 
 ```JAVA
 dependencies {
