@@ -1,0 +1,43 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+        <import type="android.net.Uri" />
+
+        <variable
+            name="uri"
+            type="Uri" />
+
+        <variable
+            name="isCover"
+            type="Boolean" />
+
+        <variable
+            name="presenter"
+            type="com.msc.grus_japonenis.publish.PublishPresenter" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:src="@mipmap/ic_launcher"
+            app:imageUri="@{uri}" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:visibility="@{isCover ? View.VISIBLE : View.GONE}"
+            android:src="@drawable/image_cover" />
+
+    </FrameLayout>
+
+</layout>

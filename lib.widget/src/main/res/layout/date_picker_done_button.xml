@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="?android:attr/buttonBarStyle"
+    android:layout_width="@dimen/date_picker_component_width"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="right"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/cancle"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="48dip"
+        android:text="@string/calcle_label"
+        android:textColor="@color/bg_blue_slow"
+        android:textSize="@dimen/done_label_size" />
+
+    <Button
+        android:id="@+id/done"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="48dip"
+        android:text="@string/done_label"
+        android:textColor="@color/bg_blue_slow"
+        android:textSize="@dimen/done_label_size"
+        android:layout_marginRight="12dp"
+        />
+
+</LinearLayout><!-- From: file:/C:/Users/f.laurent/dev/perso/github/datetimepicker/datetimepicker-library/res/layout/date_picker_done_button.xml -->

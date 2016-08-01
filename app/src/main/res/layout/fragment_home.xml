@@ -1,0 +1,22 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bright_foreground_disabled_material_dark"
+        tools:context=".main.homefragment.HomeFragment">
+
+        <com.msc.lib.widget.RxObservableRecyclerView
+            android:id="@+id/observableRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            />
+
+    </FrameLayout>
+</layout>

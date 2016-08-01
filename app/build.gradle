@@ -1,0 +1,136 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: 'build-time-tracker'
+//apply plugin: 'com.dodola.rocoofix'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+    defaultConfig {
+        applicationId "com.msc.grus_japonenis"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi', 'x86'//, 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+    }
+    // Signing
+//    signingConfigs {
+//        release {
+//            storeFile file('../sign/release.jks')
+//            storePassword "181207"
+//            keyAlias "msc"
+//            keyPassword "181207"
+//        }
+//    }
+//    buildTypes {
+//        release {
+//            signingConfig signingConfigs.release
+//        }
+//    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+repositories {
+    maven { url  "http://dl.bintray.com/dodola/maven" }
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
+    testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    compile project(':lib.lintrules-aar')
+    androidTestCompile "com.android.support:support-annotations:$rootProject.supportLibraryVersion"
+    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+
+    compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+    //    compile "com.android.support.test.espresso:espresso-idling-resource:$rootProject.espressoVersion"
+    compile "com.google.guava:guava:$rootProject.guavaVersion"
+//    compile project(':lib.style')
+    compile project(':lib.utils')
+    compile project(':lib.injection')
+    compile project(':lib.net')
+//    compile project(':lib.bean')
+    compile project(':lib.widget')
+    /** dagger2      **/
+    compile "com.google.dagger:dagger:$rootProject.daggerVersion"
+    apt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+    compile "com.github.ksoichiro:android-observablescrollview:$rootProject.observableScrollViewVersion"
+    compile "com.github.orhanobut:logger:$rootProject.loggerVersion"
+    compile "io.reactivex:rxandroid:$rootProject.rxandroidVersion"
+//    compile "com.dodola:rocoo:$rootProject.rocoofixVersion"
+    /** bugly      **/
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.1.5
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
+    /** convenientbanner      **/
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+//    compile files('libs/nfc_pay_v2.0.jar')
+    /** picturepicker      **/
+    compile 'com.github.valuesfeng:androidpicturepicker:1.0.0'
+
+//    compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
+}
+
+dexcount {
+    format = "list"
+    includeClasses = false
+    includeFieldCount = true
+    includeTotalMethodCount = false
+    orderByMethodCount = false
+    verbose = false
+    maxTreeDepth = Integer.MAX_VALUE
+    teamCityIntegration = false
+    enableForInstantRun = false
+}
+
+buildtimetracker {
+    reporters {
+        csv {
+            output "build/times.csv"
+            append true
+            header false
+        }
+        summary {
+            ordered false
+            threshold 50
+            barstyle "unicode"
+        }
+        csvSummary {
+            csv "build/times.csv"
+        }
+    }
+}
+
+//rocoo_fix {
+//    includePackage = ['com/msc/grus_japonenis']//限制需要制作补丁的package com.msc.grus_japonenis   com\msc\grus_japonenis
+//    excludeClass = ['BaseApplication.class']//将不需要加到patch里的类写在这里
+////    preVersionPath = '1'//注意：此项属性只在需要制作补丁的时候才需开启！！如果不需要制作补丁则需要去掉此项
+//    enable = true//注意：关掉此项会无法生成Hash.txt文件
+////    scanref=true//默认为 false，开启这个选项会将与补丁 class 相引用的 class 都打入包中来解决 ART 虚拟机崩溃问题，功能 Beta 中
+//}
+
