@@ -21,6 +21,7 @@ import com.msc.lib.net.event.AdvertsEvent;
 import com.msc.lib.net.event.Constant;
 import com.msc.lib.net.event.DestinationsEvent;
 import com.msc.lib.net.AppService;
+import com.msc.lib.net.event.DestinationsNearbyEvent;
 import com.msc.lib.utils.SnackbarUtils;
 import com.orhanobut.logger.Logger;
 
@@ -90,6 +91,24 @@ public class HomeFragmentPresenter extends HomeFragmentContract.Presenter<HomeFr
             Logger.e("成功");
             if (event.getResult() != null) {
                 getMvpView().getDestinationsListAdapter().setDestinations(event.getResult());
+            }
+        } else if (event.getmEventResult().equals(Constant.Result.FAIL)) {
+//            AppNetSession.doException(gasFeeActivity, event.getThrowable());
+            Logger.e("失败");
+        }
+    }
+
+    /**
+     * 附近目的地
+     */
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD
+    )
+    public void result(DestinationsNearbyEvent event) {
+        if (event.getmEventResult().equals(Constant.Result.SUCCESSS)) {
+            Logger.e("成功");
+            if (event.getResult() != null) {
+                getMvpView().getDestinationsListAdapter().setDestinationsNearby(event.getResult());
             }
         } else if (event.getmEventResult().equals(Constant.Result.FAIL)) {
 //            AppNetSession.doException(gasFeeActivity, event.getThrowable());

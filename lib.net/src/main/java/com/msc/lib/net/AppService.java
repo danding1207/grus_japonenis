@@ -101,6 +101,14 @@ public class AppService {
         getCompositeSubscription(taskId).add(RxHttp.getUser(context));
     }
 
+    public void getUnread(Context context,int taskId) {
+        getCompositeSubscription(taskId).add(RxHttp.getUnread(context));
+    }
+
+    public void getDestinationsNearby(Context context,int taskId, String lat, String lng) {
+        getCompositeSubscription(taskId).add(RxHttp.getDestinationsNearby(context, lat, lng));
+    }
+
 
 //
 //    public void getTimelines(Context context,int taskId, int page, boolean isRefresh) {

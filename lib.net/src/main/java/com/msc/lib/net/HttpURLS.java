@@ -32,4 +32,11 @@ public class HttpURLS {
 	/** 用户信息查询 */
 	public static final String user = ip+"/api/v1/i/profiles.json";
 
+	/** 用户未读消息查询 */
+	public static final String unread = ip+"/api/v1/i/unread.json";
+
+	/** 附近目的地 */
+	public static final String nearby = ip+"/api/v2/destinations/nearby.json";
+//	http://q.chanyouji.com/api/v2/destinations/nearby.json?lat=39.933358&lng=116.27624&recommend
+
 }

@@ -17,11 +17,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.msc.grus_japonenis.R;
 import com.msc.grus_japonenis.databinding.DestinationsListItemHeaderBinding;
+import com.msc.grus_japonenis.databinding.DestinationsListItemNearbyBinding;
 import com.msc.grus_japonenis.databinding.DestinationsListItemNormalBinding;
 import com.msc.grus_japonenis.databinding.DestinationsListItemTitleBinding;
 import com.msc.grus_japonenis.databinding.PublishListItemAddBinding;
 import com.msc.lib.net.bean.Adverts;
 import com.msc.lib.net.bean.Destinations;
+import com.msc.lib.net.bean.DestinationsNearby;
 import com.msc.lib.net.listener.OnTapListener;
 import com.msc.lib.utils.UnitConversionUtils;
 import java.util.ArrayList;
@@ -35,13 +37,14 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
     public static final int HEADERVIEWHOLDER = 0010;
     public static final int TITLEVIEWHOLDER = 0011;
     public static final int NORMALVIEWHOLDER = 0012;
+    public static final int NEARBYVIEWHOLDER = 0013;
 
     private static Activity context;
     private static HomeFragmentPresenter homeFragmentPresenter;
     private Destinations destinations;
+    private DestinationsNearby destinationsNearby;
     private Adverts adverts;
-    private static List<String> advertslist = new ArrayList<>();
-    private static List<Destinations.DataEntity.DestinationsEntity> list = new ArrayList<>();
+    private List<Destinations.DataEntity.DestinationsEntity> list = new ArrayList<>();
     private static OnTapListener onTapListener;
     private static int width;
     private static int height;
@@ -61,9 +64,11 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
     public int getItemViewType(int position) {
         if (position == 0) {
             return HEADERVIEWHOLDER;
+        } else if(position == 1) {
+            return NEARBYVIEWHOLDER;
         } else {
             if (list != null && list.size() > 0) {
-                if (TextUtils.isEmpty(list.get(3 * (position - 1)).getTitle())) {
+                if (TextUtils.isEmpty(list.get(3 * (position - 2)).getTitle())) {
                     return NORMALVIEWHOLDER;
                 } else {
                     return TITLEVIEWHOLDER;
@@ -83,6 +88,9 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
             case TITLEVIEWHOLDER:
                 DestinationsListItemTitleBinding destinationsListItemTitleBinding = DestinationsListItemTitleBinding.inflate(inflater, parent, false);
                 return new TitleViewHolder(destinationsListItemTitleBinding);
+            case NEARBYVIEWHOLDER:
+                DestinationsListItemNearbyBinding destinationsListItemNearbyBinding = DestinationsListItemNearbyBinding.inflate(inflater, parent, false);
+                return new NearbyViewHolder(destinationsListItemNearbyBinding);
             case NORMALVIEWHOLDER:
                 DestinationsListItemNormalBinding destinationsListItemNormalBinding = DestinationsListItemNormalBinding.inflate(inflater, parent, false);
                 return new NormalViewHolder(destinationsListItemNormalBinding);
@@ -95,17 +103,19 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         if (holder instanceof HeaderViewHolder) {
             ((HeaderViewHolder) (holder)).bind(adverts);
+        } else if (holder instanceof NearbyViewHolder) {
+            ((NearbyViewHolder) (holder)).bind(destinationsNearby);
         } else if (holder instanceof TitleViewHolder) {
-            ((TitleViewHolder) (holder)).bind(position - 1);
+            ((TitleViewHolder) (holder)).bind(new Destinations.DataEntity.DestinationsEntity[]{list.get(3 * (position - 2)), list.get(3 * (position - 2) + 1), list.get(3 * (position - 2) + 2)});
         } else if (holder instanceof NormalViewHolder) {
-            ((NormalViewHolder) (holder)).bind(position - 1);
+            ((NormalViewHolder) (holder)).bind(new Destinations.DataEntity.DestinationsEntity[]{list.get(3 * (position - 2)), list.get(3 * (position - 2) + 1), list.get(3 * (position - 2) + 2)});
         }
 
     }
 
     @Override
     public int getItemCount() {
-        return list == null || list.size() == 0 ? 1 : list.size() / 3 + 1;
+        return list == null || list.size() == 0 ? 2 : list.size() / 3 + 2;
     }
 
     public static class HeaderViewHolder extends RecyclerView.ViewHolder {
@@ -124,6 +134,10 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         public void bind(Adverts adverts) {
             if (adverts != null) {
+                ArrayList advertslist = new ArrayList<>();
+                for (Adverts.DataEntity advert : adverts.getData()) {
+                    advertslist.add(advert.getPhoto().getPhoto_url());
+                }
                 destinationsListItemHeaderBinding.convenientBanner.setPages(
                         new CBViewHolderCreator<NetworkImageHolderView>() {
                             @Override
@@ -166,9 +180,36 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         }
 
-        public void bind(int position) {
+        public void bind(Destinations.DataEntity.DestinationsEntity[] destinations) {
             destinationsListItemTitleBinding.setPresenter(homeFragmentPresenter);
-            destinationsListItemTitleBinding.setArray(new Destinations.DataEntity.DestinationsEntity[]{list.get(3 * position), list.get(3 * position + 1), list.get(3 * position + 2)});
+            destinationsListItemTitleBinding.setArray(destinations);
+        }
+    }
+
+    public static class NearbyViewHolder extends RecyclerView.ViewHolder {
+
+        public DestinationsListItemNearbyBinding destinationsListItemNearbyBinding;
+
+        public NearbyViewHolder(DestinationsListItemNearbyBinding destinationsListItemNearbyBinding) {
+            super(destinationsListItemNearbyBinding.getRoot());
+            this.destinationsListItemNearbyBinding = destinationsListItemNearbyBinding;
+
+            LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(h, h);
+            destinationsListItemNearbyBinding.ivDestinations1.setLayoutParams(params1);
+
+            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(h, h);
+            params2.leftMargin = UnitConversionUtils.dipTopx(context, 12);
+            params2.rightMargin = UnitConversionUtils.dipTopx(context, 12);
+            destinationsListItemNearbyBinding.ivDestinations2.setLayoutParams(params2);
+
+            LinearLayout.LayoutParams params3 = new LinearLayout.LayoutParams(h, h);
+            destinationsListItemNearbyBinding.ivDestinations3.setLayoutParams(params3);
+
+        }
+
+        public void bind(DestinationsNearby destinationsNearby) {
+            destinationsListItemNearbyBinding.setPresenter(homeFragmentPresenter);
+            destinationsListItemNearbyBinding.setArray(new DestinationsNearby.DataBean[]{destinationsNearby.getData().get(0), destinationsNearby.getData().get(1), destinationsNearby.getData().get(2)});
         }
     }
 
@@ -193,9 +234,9 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
             destinationsListItemNormalBinding.ivDestinations3.setLayoutParams(params3);
         }
 
-        public void bind(int position) {
+        public void bind(Destinations.DataEntity.DestinationsEntity[] destinations) {
             destinationsListItemNormalBinding.setPresenter(homeFragmentPresenter);
-            destinationsListItemNormalBinding.setArray(new Destinations.DataEntity.DestinationsEntity[]{list.get(3 * position), list.get(3 * position + 1), list.get(3 * position + 2)});
+            destinationsListItemNormalBinding.setArray(destinations);
         }
     }
 
@@ -212,6 +253,11 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
     public void setDestinations(Destinations destinations) {
         this.destinations = destinations;
         initDestinations();
+        notifyDataSetChanged();
+    }
+
+    public void setDestinationsNearby(DestinationsNearby destinationsNearby) {
+        this.destinationsNearby = destinationsNearby;
         notifyDataSetChanged();
     }
 
@@ -234,10 +280,6 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     public void setAdverts(Adverts adverts) {
         this.adverts = adverts;
-        advertslist = new ArrayList<>();
-        for (Adverts.DataEntity advert : adverts.getData()) {
-            advertslist.add(advert.getPhoto().getPhoto_url());
-        }
         notifyItemChanged(0);
     }
 

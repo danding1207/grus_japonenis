@@ -2,7 +2,9 @@ package com.msc.lib.net;
 
 import com.msc.lib.net.bean.Adverts;
 import com.msc.lib.net.bean.Destinations;
+import com.msc.lib.net.bean.DestinationsNearby;
 import com.msc.lib.net.bean.DestinationsSearch;
+import com.msc.lib.net.bean.Unread;
 import com.msc.lib.net.bean.User;
 import java.util.List;
 import retrofit.http.GET;
@@ -52,24 +54,38 @@ public interface RxApi {
 //    @GET(HttpURLS.useractivities_grouped)
 //    Observable<ActivitiesGrouped> getUserActivitiesGrouped(@Path("user") String userid, @Path("groupe") String groupe);
 //
+
+    /**
+     * 目的地搜索
+     * @param search_type
+     * @param destinationsid
+     * @return
+     */
     @GET(HttpURLS.destinations_search)
     Observable<DestinationsSearch> getDestinationsSearch(@Query("search_type") String search_type, @Query("q") String destinationsid);
 
-
-
+    /**
+     * 用户信息查询
+     * @return
+     */
     @GET(HttpURLS.user)
     Observable<User> getUser();
 
+    /**
+     * 用户未读消息查询
+     * @return
+     */
+    @GET(HttpURLS.unread)
+    Observable<Unread> getUnread();
 
-    @GET(HttpURLS.user)
-    Observable<List<User>> getUsers();
+    /**
+     * 目的地搜索
+     * @param lat
+     * @param lng
+     * @return
+     */
+    @GET(HttpURLS.nearby)
+    Observable<DestinationsNearby> getDestinationsNearby(@Query("lat") String lat, @Query("lng") String lng);
 
-//    /**
-//     * 图片处理
-//     * @param params
-//     * @return
-//     */
-//    @FormUrlEncoded
-//    @GET(HttpURLS.adverts)
-//    Observable<Adverts> getAdverts(@FieldMap Map<String, String> params);
+
 }

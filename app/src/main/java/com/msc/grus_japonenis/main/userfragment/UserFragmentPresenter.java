@@ -7,6 +7,7 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.msc.grus_japonenis.main.MainActivity;
 import com.msc.lib.net.event.Constant;
+import com.msc.lib.net.event.UnreadEvent;
 import com.msc.lib.net.event.UserEvent;
 import com.msc.lib.net.AppService;
 import com.msc.lib.utils.SnackbarUtils;
@@ -60,6 +61,24 @@ public class UserFragmentPresenter extends UserFragmentContract.Presenter<UserFr
         }
     }
 
+    /**
+     * 用户信息
+     */
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD
+    )
+    public void result(UnreadEvent event) {
+        if (event.getmEventResult().equals(Constant.Result.SUCCESSS)) {
+            Logger.e("成功");
+            if (event.getResult() != null) {
+                getMvpView().setUnreadResult(event.getResult());
+            }
+        } else if (event.getmEventResult().equals(Constant.Result.FAIL)) {
+//            AppNetSession.doException(gasFeeActivity, event.getThrowable());
+            Logger.e("失败");
+        }
+    }
+
     @Override
     public void result(int requestCode, int resultCode) {
 
@@ -67,6 +86,7 @@ public class UserFragmentPresenter extends UserFragmentContract.Presenter<UserFr
 
     @Override
     public void onResume() {
+        AppService.getInstance().getUnread(mActivity,mActivity.getTaskId());
     }
 
     @Override

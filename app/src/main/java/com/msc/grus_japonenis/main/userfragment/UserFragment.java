@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.msc.grus_japonenis.base.BaseFragment;
 import com.msc.grus_japonenis.databinding.FragmentUserBinding;
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
+import com.msc.lib.net.bean.Unread;
 import com.msc.lib.net.bean.User;
 
 import javax.inject.Inject;
@@ -90,4 +91,14 @@ public class UserFragment extends BaseFragment implements UserFragmentContract.V
         mViewModel.setUserFragmentShow(true);
     }
 
+    @Override
+    public void setUnreadResult(Unread result) {
+        mViewModel.setUnread(result);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        userFragmentPresenter.onResume();
+    }
 }

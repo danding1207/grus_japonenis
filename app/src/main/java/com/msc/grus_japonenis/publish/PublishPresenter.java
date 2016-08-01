@@ -80,12 +80,9 @@ public class PublishPresenter extends PublishContract.Presenter<PublishContract.
 
     @Override
     public void date() {
-//        SnackbarUtils.toast(getMvpView().getActivityPublishBinding().mainContent, "日期", Snackbar.LENGTH_SHORT);
         datePickerDialog.setYearRange(1985, 2028);
         datePickerDialog.setCloseOnSingleTapDay(false);
         datePickerDialog.show(mActivity.getSupportFragmentManager(), DATEPICKER_TAG);
-
-
     }
 
     @Override
@@ -105,6 +102,6 @@ public class PublishPresenter extends PublishContract.Presenter<PublishContract.
 
     @Override
     public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-        getMvpView().setDate(year + "-" + month + "-" + day);
+        getMvpView().setDate(year + "-" + (month+1) + "-" + day);
     }
 }

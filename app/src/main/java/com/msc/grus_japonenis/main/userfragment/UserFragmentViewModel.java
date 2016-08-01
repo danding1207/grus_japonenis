@@ -25,6 +25,7 @@ import android.support.v4.content.ContextCompat;
 import com.msc.grus_japonenis.BR;
 import com.msc.grus_japonenis.R;
 import com.msc.grus_japonenis.base.BaseActivity;
+import com.msc.lib.net.bean.Unread;
 import com.msc.lib.net.bean.User;
 import com.orhanobut.logger.Logger;
 
@@ -94,4 +95,12 @@ public class UserFragmentViewModel extends BaseObservable {
     }
 
 
+    public void setUnread(Unread result) {
+        user.getData().getUnread_notifications_count().setComments(result.getComments());
+        user.getData().getUnread_notifications_count().setFavorites(result.getFavorites());
+        user.getData().getUnread_notifications_count().setFollows(result.getFollows());
+        user.getData().getUnread_notifications_count().setLikes(result.getLikes());
+        user.getData().getUnread_notifications_count().setSystems(result.getSystems());
+        notifyPropertyChanged(BR.messageIcon);
+    }
 }

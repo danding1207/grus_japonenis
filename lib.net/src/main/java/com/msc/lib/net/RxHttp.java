@@ -5,12 +5,16 @@ import android.content.Context;
 import com.hwangjr.rxbus.RxBus;
 import com.msc.lib.net.bean.Adverts;
 import com.msc.lib.net.bean.Destinations;
+import com.msc.lib.net.bean.DestinationsNearby;
 import com.msc.lib.net.bean.DestinationsSearch;
+import com.msc.lib.net.bean.Unread;
 import com.msc.lib.net.bean.User;
 import com.msc.lib.net.event.AdvertsEvent;
 import com.msc.lib.net.event.Constant;
 import com.msc.lib.net.event.DestinationsEvent;
+import com.msc.lib.net.event.DestinationsNearbyEvent;
 import com.msc.lib.net.event.DestinationsSearchEvent;
+import com.msc.lib.net.event.UnreadEvent;
 import com.msc.lib.net.event.UserEvent;
 import com.orhanobut.logger.Logger;
 //import com.msc.inspiration.lib.bean.Event.ActivitiesGroupedEvent;
@@ -174,25 +178,18 @@ public class RxHttp {
         return subscription;
     }
 
-    public static Subscription getUsers(Context context) {
-        Subscription subscription = RxApiFactory.getRxApi(context).getUsers()
-                .subscribeOn(Schedulers.newThread()).doOnNext(new Action1<List<User>>() {
+    public static Subscription getUnread(Context context) {
+        Subscription subscription = RxApiFactory.getRxApi(context).getUnread()
+                .subscribeOn(Schedulers.newThread()).doOnNext(new Action1<Unread>() {
                     @Override
-                    public void call(List<User> result) {
-
+                    public void call(Unread result) {
                     }
                 })
-                .flatMap(new Func1<List<User>, Observable<User>>() {
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Unread>() {
                     @Override
-                    public Observable<User> call(List<User> users) {
-                        return Observable.from(users);
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<User>() {
-                    @Override
-                    public void call(User result) {
+                    public void call(Unread result) {
                         Logger.d(result.toString());
-                        UserEvent newsEvent = new UserEvent(result, Constant.GetResultWay.UPDATA, null);
+                        UnreadEvent newsEvent = new UnreadEvent(result, Constant.GetResultWay.UPDATA, null);
                         if (result == null) {
                             newsEvent.setmEventResult(Constant.Result.FAIL);
                         } else {
@@ -204,13 +201,46 @@ public class RxHttp {
                     @Override
                     public void call(Throwable throwable) {
                         Logger.e(throwable.toString());
-                        UserEvent newsEvent = new UserEvent(new User(), Constant.GetResultWay.UPDATA, throwable);
+                        UnreadEvent newsEvent = new UnreadEvent(new Unread(), Constant.GetResultWay.UPDATA, throwable);
                         newsEvent.setmEventResult(Constant.Result.FAIL);
                         RxBus.get().post(newsEvent);
                     }
                 });
         return subscription;
     }
+
+    public static Subscription getDestinationsNearby(Context context, String lat, String lng) {
+        Subscription subscription = RxApiFactory.getRxApi(context).getDestinationsNearby(lat, lng)
+                .subscribeOn(Schedulers.newThread()).doOnNext(new Action1<DestinationsNearby>() {
+                    @Override
+                    public void call(DestinationsNearby result) {
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<DestinationsNearby>() {
+                    @Override
+                    public void call(DestinationsNearby result) {
+                        Logger.d(result.toString());
+                        DestinationsNearbyEvent newsEvent = new DestinationsNearbyEvent(result, Constant.GetResultWay.UPDATA, null);
+                        if (result == null) {
+                            newsEvent.setmEventResult(Constant.Result.FAIL);
+                        } else {
+                            newsEvent.setmEventResult(Constant.Result.SUCCESSS);
+                        }
+                        RxBus.get().post(newsEvent);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Logger.e(throwable.toString());
+                        DestinationsNearbyEvent newsEvent = new DestinationsNearbyEvent(new DestinationsNearby(), Constant.GetResultWay.UPDATA, throwable);
+                        newsEvent.setmEventResult(Constant.Result.FAIL);
+                        RxBus.get().post(newsEvent);
+                    }
+                });
+        return subscription;
+    }
+
+
 
 //
 //    public static Subscription getTimelines(Context context, int page, final boolean isRefresh) {

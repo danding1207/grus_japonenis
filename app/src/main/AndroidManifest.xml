@@ -81,6 +81,11 @@
             android:name="BUGLY_ENABLE_DEBUG"
             android:value="true" />
 
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="f66db7de7c6812602a9abd41d059b8d8"/>//开发者申请的key
+
+        <service android:name="com.amap.api.location.APSService"></service>
     </application>
 
 </manifest>

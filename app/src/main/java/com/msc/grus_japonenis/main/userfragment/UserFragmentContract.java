@@ -19,6 +19,7 @@ package com.msc.grus_japonenis.main.userfragment;
 import com.msc.grus_japonenis.databinding.FragmentUserBinding;
 import com.msc.grus_japonenis.lib.injection.BasePresenter;
 import com.msc.grus_japonenis.lib.injection.BaseView;
+import com.msc.lib.net.bean.Unread;
 import com.msc.lib.net.bean.User;
 
 /**
@@ -31,6 +32,8 @@ public interface UserFragmentContract {
         FragmentUserBinding getFragmentUserBinding();
 
         void setUserResult(User result);
+
+        void setUnreadResult(Unread result);
 
 //        DestinationsListAdapter getDestinationsListAdapter();
 
