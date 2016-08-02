@@ -17,6 +17,8 @@
 package com.msc.grus_japonenis.main;
 
 import android.support.annotation.NonNull;
+import android.view.View;
+
 import com.msc.grus_japonenis.databinding.ActivityMainBinding;
 import com.msc.grus_japonenis.lib.injection.BasePresenter;
 import com.msc.grus_japonenis.lib.injection.BaseView;
@@ -38,25 +40,6 @@ public interface MainContract {
 
         void hideToolbar();
 
-//        void setLoadingIndicator(boolean active);
-//
-//        void showTasks(List<Task> tasks);
-//
-//        void showAddTask();
-//
-//        void showTaskDetailsUi(String taskId);
-//
-//        void showTaskMarkedComplete();
-//
-//        void showTaskMarkedActive();
-//
-//        void showCompletedTasksCleared();
-//
-//        void showLoadingTasksError();
-//
-//        void showSuccessfullySavedMessage();
-//
-//        boolean isActive();
     }
 
     abstract class Presenter<T extends View> extends BasePresenter<T> {
@@ -73,27 +56,11 @@ public interface MainContract {
 
         abstract public void search();
 
-        abstract public void add();
+        abstract public void add(android.view.View view);
 
         abstract public void onBackPressed();
 
         abstract void onDestroy();
 
-//
-//        void loadTasks(boolean forceUpdate);
-//
-//        void addNewTask();
-//
-//        void openTaskDetails(@NonNull Task requestedTask);
-//
-//        void completeTask(@NonNull Task completedTask);
-//
-//        void activateTask(@NonNull Task activeTask);
-//
-//        void clearCompletedTasks();
-//
-//        void setFiltering(TasksFilterType requestType);
-//
-//        TasksFilterType getFiltering();
     }
 }

@@ -105,7 +105,7 @@
             android:scaleX="0.0"
             android:scaleY="0.0"
             android:visibility="gone"
-            android:onClick="@{() -> mainViewModel.getPresenter().add()}"
+            android:onClick="@{(view) -> mainViewModel.getPresenter().add(view)}"
             android:src="@drawable/ic_edit"
             fab:backgroundTint="@color/appToolbarColor"
             fab:borderWidth="0.0dip"

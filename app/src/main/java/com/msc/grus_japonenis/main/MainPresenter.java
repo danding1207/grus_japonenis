@@ -12,10 +12,12 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.msc.grus_japonenis.DetailActivity;
+import com.msc.grus_japonenis.R;
 import com.msc.grus_japonenis.base.BaseActivity;
 import com.msc.grus_japonenis.publish.PublishActivity;
 import com.msc.grus_japonenis.search.SearchActivity;
 import com.msc.lib.net.AppService;
+import com.msc.lib.utils.CircularAnimUtil;
 import com.msc.lib.utils.SnackbarUtils;
 import com.orhanobut.logger.Logger;
 
@@ -149,8 +151,9 @@ public class MainPresenter extends MainContract.Presenter<MainContract.View> imp
     }
 
     @Override
-    public void add() {
-        mActivity.startActivity(new Intent(mActivity, PublishActivity.class));
+    public void add(View view) {
+//        mActivity.startActivity(new Intent(mActivity, PublishActivity.class));
+        CircularAnimUtil.startActivity(mActivity, PublishActivity.class, view, R.color.appToolbarColor);
     }
 
     private boolean isExit = false;
