@@ -11,6 +11,7 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 import com.jakewharton.rxbinding.widget.TextViewTextChangeEvent;
 import com.msc.grus_japonenis.R;
 import com.msc.grus_japonenis.base.BaseActivity;
+import com.msc.grus_japonenis.base.BaseSwipeBackActivity;
 import com.msc.grus_japonenis.databinding.ActivitySearchBinding;
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
 import com.msc.lib.net.bean.DestinationsSearch;
@@ -22,7 +23,7 @@ import javax.inject.Inject;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class SearchActivity extends BaseActivity implements SearchContract.View {
+public class SearchActivity extends BaseSwipeBackActivity implements SearchContract.View {
 
     @Inject
     SearchPresenter mPresenter;

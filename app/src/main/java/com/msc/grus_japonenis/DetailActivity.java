@@ -9,11 +9,12 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.msc.grus_japonenis.base.BaseActivity;
+import com.msc.grus_japonenis.base.BaseSwipeBackActivity;
 import com.msc.grus_japonenis.databinding.ActivityDetailBinding;
 import com.msc.grus_japonenis.databinding.DestinationsListItemNormalBinding;
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
 
-public class DetailActivity extends BaseActivity {
+public class DetailActivity extends BaseSwipeBackActivity {
 
 //    @Inject
 //    MainPresenter mPresenter;

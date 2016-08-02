@@ -22,6 +22,7 @@ import android.databinding.Bindable;
 
 import com.msc.grus_japonenis.BR;
 import com.msc.grus_japonenis.base.BaseActivity;
+import com.msc.grus_japonenis.base.BaseSwipeBackActivity;
 import com.msc.lib.net.bean.DestinationsSearch;
 import com.orhanobut.logger.Logger;
 
@@ -42,7 +43,7 @@ public class SearchViewModel extends BaseObservable {
 
     private boolean isProgressBarShow;
 
-    public SearchViewModel(BaseActivity context, SearchPresenter presenter) {
+    public SearchViewModel(BaseSwipeBackActivity context, SearchPresenter presenter) {
         mContext = context;
         mPresenter = presenter;
     }

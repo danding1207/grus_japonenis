@@ -15,6 +15,7 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 import com.jakewharton.rxbinding.widget.TextViewTextChangeEvent;
 import com.msc.grus_japonenis.R;
 import com.msc.grus_japonenis.base.BaseActivity;
+import com.msc.grus_japonenis.base.BaseSwipeBackActivity;
 import com.msc.grus_japonenis.databinding.ActivityPublishBinding;
 import com.msc.grus_japonenis.databinding.ActivitySearchBinding;
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
@@ -29,7 +30,7 @@ import javax.inject.Inject;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class PublishActivity extends BaseActivity implements PublishContract.View {
+public class PublishActivity extends BaseSwipeBackActivity implements PublishContract.View {
 
     @Inject
     PublishPresenter mPresenter;

@@ -22,6 +22,7 @@ import android.databinding.Bindable;
 
 import com.msc.grus_japonenis.BR;
 import com.msc.grus_japonenis.base.BaseActivity;
+import com.msc.grus_japonenis.base.BaseSwipeBackActivity;
 import com.msc.lib.net.bean.DestinationsSearch;
 import com.orhanobut.logger.Logger;
 
@@ -38,7 +39,7 @@ public class PublishViewModel extends BaseObservable {
     private Context mContext;
     private String date;
 
-    public PublishViewModel(BaseActivity context, PublishPresenter presenter) {
+    public PublishViewModel(BaseSwipeBackActivity context, PublishPresenter presenter) {
         mContext = context;
         mPresenter = presenter;
     }

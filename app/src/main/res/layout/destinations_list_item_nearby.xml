@@ -185,6 +185,7 @@
             android:layout_margin="12dp"
             android:text="更多附近目的地"
             android:gravity="center"
+            android:visibility="@{array==null?View.INVISIBLE:View.VISIBLE}"
             android:onClick="@{() -> presenter.onClickMoreNearby()}"
             android:textColor="@color/appToolbarColor"
             android:textSize="20sp"

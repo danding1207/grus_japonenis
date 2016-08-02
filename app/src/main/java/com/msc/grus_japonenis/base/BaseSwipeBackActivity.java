@@ -4,11 +4,8 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -21,7 +18,7 @@ import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
 import me.majiajie.swipeback.SwipeBackActivity;
 
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseSwipeBackActivity extends SwipeBackActivity {
 
 //    private LoadingDialog loadingDialog;
 //    public int mDayNightMode = AppCompatDelegate.MODE_NIGHT_AUTO;

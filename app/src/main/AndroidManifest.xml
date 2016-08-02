@@ -28,6 +28,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
     <!--写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <!--【非必选】若想知道 Crash 的时候，后台有哪些任务运行，请引入该权限-->
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
         android:name=".base.BaseApplication"
