@@ -15,18 +15,6 @@
             name="arrayKey"
             type="int" />
 
-        <!--<variable-->
-            <!--name="destinationsEntity1"-->
-            <!--type="com.msc.lib.bean.Destinations.DataEntity.DestinationsEntity"/>-->
-
-        <!--<variable-->
-            <!--name="destinationsEntity2"-->
-            <!--type="com.msc.lib.bean.Destinations.DataEntity.DestinationsEntity"/>-->
-
-        <!--<variable-->
-            <!--name="destinationsEntity3"-->
-            <!--type="com.msc.lib.bean.Destinations.DataEntity.DestinationsEntity"/>-->
-
         <variable
             name="presenter"
             type="com.msc.grus_japonenis.main.homefragment.HomeFragmentPresenter"/>
@@ -79,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/common_google_signin_btn_icon_dark_disabled"
-                    android:onClick="@{() -> presenter.onClick(array[0].getId(), array[0].getName())}"
+                    android:onClick="@{(view) -> presenter.onClick(view, array[0].getId(), array[0].getName())}"
                     app:imageUrl = "@{array[0].getPhoto_url()}"
                     />
 
@@ -118,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/common_google_signin_btn_icon_dark_disabled"
-                    android:onClick="@{() -> presenter.onClick(array[1].getId(), array[1].getName())}"
+                    android:onClick="@{(view) -> presenter.onClick(view, array[1].getId(), array[1].getName())}"
                     app:imageUrl = "@{array[1].getPhoto_url()}"
                     />
 
@@ -157,7 +145,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/common_google_signin_btn_icon_dark_disabled"
-                    android:onClick="@{() -> presenter.onClick(array[2].getId(), array[2].getName())}"
+                    android:onClick="@{(view) -> presenter.onClick(view, array[2].getId(), array[2].getName())}"
                     app:imageUrl = "@{array[2].getPhoto_url()}"
                     />
 

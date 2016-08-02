@@ -14,6 +14,7 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCal
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.thread.EventThread;
+import com.msc.grus_japonenis.R;
 import com.msc.grus_japonenis.base.BaseActivity;
 import com.msc.grus_japonenis.main.MainActivity;
 import com.msc.grus_japonenis.search.SearchActivity;
@@ -22,6 +23,7 @@ import com.msc.lib.net.event.Constant;
 import com.msc.lib.net.event.DestinationsEvent;
 import com.msc.lib.net.AppService;
 import com.msc.lib.net.event.DestinationsNearbyEvent;
+import com.msc.lib.utils.CircularAnimUtil;
 import com.msc.lib.utils.SnackbarUtils;
 import com.orhanobut.logger.Logger;
 
@@ -155,16 +157,17 @@ public class HomeFragmentPresenter extends HomeFragmentContract.Presenter<HomeFr
         }
     }
 
-    public void onClick(int id, String name) {
+    public void onClick(View view, int id, String name) {
         Logger.d("id--->"+id);
         Intent intent = new Intent(mActivity, SearchActivity.class);
         intent.putExtra("DestinationId", id);
         intent.putExtra("DestinationName", name);
-        mActivity.startActivity(intent);
+//        mActivity.startActivity(intent);
+        CircularAnimUtil.startActivity(mActivity, intent, view, R.color.appToolbarColor);
     }
 
 
-    public void onClickMoreNearby() {
+    public void onClickMoreNearby(View view) {
         SnackbarUtils.toast(mActivity.getActivityMainBinding().mainContent, "点击了更多附近目的地", Snackbar.LENGTH_SHORT);
     }
 
