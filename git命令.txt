@@ -8,10 +8,5 @@
 （8）git checkout -b [branchName] [fromBranchName]              //生成新的Branch，后面这个[fromBranchName] 就是你想要从哪个分支生成新的分支，不写则是当前分支
 （9）cat .git/HEAD                          //查看指向的分支名
 （10）git merge [branchName]                //合并分支，前提是指向master分支
-
-
-
-
-
-
-
+（11）git push origin --delete [branchName]     //删除远程分支
+（12）git branch -d [branchName]                //删除本地分支
