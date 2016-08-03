@@ -1,6 +1,9 @@
-package com.msc.grus_japonenis.main;
+package com.msc.grus_japonenis.dagger;
 
 import com.msc.grus_japonenis.lib.injection.ActivityScope;
+import com.msc.grus_japonenis.main.MainActivity;
+import com.msc.grus_japonenis.main.MainViewModel;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -11,12 +14,9 @@ import dagger.Provides;
 public class MainActivityModule {
 
     private MainActivity mainActivity;
-    private MainPresenter mainPresenter;
-
 
     public MainActivityModule(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-        mainPresenter = new MainPresenter(mainActivity);
     }
 
     @Provides
@@ -27,14 +27,8 @@ public class MainActivityModule {
 
     @Provides
     @ActivityScope
-    MainPresenter provideMainPresenter() {
-        return mainPresenter;
-    }
-
-    @Provides
-    @ActivityScope
     MainViewModel provideMainViewModel() {
-        return new MainViewModel(mainActivity, mainPresenter);
+        return new MainViewModel(mainActivity);
     }
 
 }

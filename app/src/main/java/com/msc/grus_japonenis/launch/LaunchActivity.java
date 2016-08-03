@@ -33,7 +33,6 @@ public class LaunchActivity extends BaseActivity implements LaunchContract.View 
         super.onCreate(savedInstanceState);
         activityLaunchBinding = DataBindingUtil.setContentView(this, setContentViewIds());
         mPresenter.attachView(this);
-
         /**   Application 初始化操作分离至 LaunchActivity */
         CrashReport.initCrashReport(getApplicationContext());
         AppService.getInstance().initService(getApplicationContext());
@@ -41,7 +40,6 @@ public class LaunchActivity extends BaseActivity implements LaunchContract.View 
         getApplication().registerActivityLifecycleCallbacks(ActivityStack.getInstance());
         OneApmAgent.init(getApplicationContext()).setToken("0894B614C16F0E4F2F8C142592689AA387").start();
         Logger.init("Inspiration");
-
     }
 
     @Override

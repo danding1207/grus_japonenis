@@ -60,7 +60,7 @@ public class PublishPicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         activity.getWindowManager().getDefaultDisplay().getMetrics(metric);
         width = metric.widthPixels;     // 屏幕宽度（像素）
         height = (int) (width * 378f / 808f);   // 屏幕高度（像素）
-        h = (int) ((width - UnitConversionUtils.dipTopx(activity, 12 * 4)) / 3f);
+        h = (int) ((width - UnitConversionUtils.dip2px(activity, 12 * 4)) / 3f);
     }
 
     public void updata(ArrayList<Uri> mSelectedPic) {

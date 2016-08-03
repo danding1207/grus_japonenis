@@ -2,8 +2,6 @@ package com.msc.grus_japonenis.main.homefragment;
 
 import com.msc.grus_japonenis.lib.injection.ActivityScope;
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
-import com.msc.grus_japonenis.main.MainActivity;
-import com.msc.grus_japonenis.main.MainActivityModule;
 
 import dagger.Component;
 

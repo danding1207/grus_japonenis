@@ -59,6 +59,11 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
         mHomeFragmentPresenter.start();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
     private void initView() {
         mFragmentHomeBinding.observableRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mFragmentHomeBinding.observableRecyclerView.setHasFixedSize(true);

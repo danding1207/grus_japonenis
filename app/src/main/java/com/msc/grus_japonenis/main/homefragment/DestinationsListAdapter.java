@@ -59,7 +59,7 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
         context.getWindowManager().getDefaultDisplay().getMetrics(metric);
         width = metric.widthPixels;     // 屏幕宽度（像素）
         height = (int) (width * 378f / 808f);   // 屏幕高度（像素）
-        h = (int) ((width - UnitConversionUtils.dipTopx(context, 12 * 4)) / 3f);
+        h = (int) ((width - UnitConversionUtils.dip2px(context, 12 * 4)) / 3f);
     }
 
     @Override
@@ -174,8 +174,8 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
             destinationsListItemTitleBinding.ivDestinations1.setLayoutParams(params1);
 
             LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(h, h);
-            params2.leftMargin = UnitConversionUtils.dipTopx(context, 12);
-            params2.rightMargin = UnitConversionUtils.dipTopx(context, 12);
+            params2.leftMargin = UnitConversionUtils.dip2px(context, 12);
+            params2.rightMargin = UnitConversionUtils.dip2px(context, 12);
             destinationsListItemTitleBinding.ivDestinations2.setLayoutParams(params2);
 
             LinearLayout.LayoutParams params3 = new LinearLayout.LayoutParams(h, h);
@@ -201,8 +201,8 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
             destinationsListItemNearbyBinding.ivDestinations1.setLayoutParams(params1);
 
             LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(h, h);
-            params2.leftMargin = UnitConversionUtils.dipTopx(context, 12);
-            params2.rightMargin = UnitConversionUtils.dipTopx(context, 12);
+            params2.leftMargin = UnitConversionUtils.dip2px(context, 12);
+            params2.rightMargin = UnitConversionUtils.dip2px(context, 12);
             destinationsListItemNearbyBinding.ivDestinations2.setLayoutParams(params2);
 
             LinearLayout.LayoutParams params3 = new LinearLayout.LayoutParams(h, h);
@@ -230,8 +230,8 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
             destinationsListItemNormalBinding.ivDestinations1.setLayoutParams(params1);
 
             LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(h, h);
-            params2.leftMargin = UnitConversionUtils.dipTopx(context, 12);
-            params2.rightMargin = UnitConversionUtils.dipTopx(context, 12);
+            params2.leftMargin = UnitConversionUtils.dip2px(context, 12);
+            params2.rightMargin = UnitConversionUtils.dip2px(context, 12);
             destinationsListItemNormalBinding.ivDestinations2.setLayoutParams(params2);
 
             LinearLayout.LayoutParams params3 = new LinearLayout.LayoutParams(h, h);

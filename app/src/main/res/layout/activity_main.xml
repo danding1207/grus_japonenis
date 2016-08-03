@@ -48,7 +48,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="48.0dip"
-                        android:onClick="@{() -> mainViewModel.getPresenter().search()}"
+                        android:onClick="@{() -> mainViewModel.search()}"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -105,7 +105,7 @@
             android:scaleX="0.0"
             android:scaleY="0.0"
             android:visibility="gone"
-            android:onClick="@{(view) -> mainViewModel.getPresenter().add(view)}"
+            android:onClick="@{(view) -> mainViewModel.add(view)}"
             android:src="@drawable/ic_edit"
             fab:backgroundTint="@color/appToolbarColor"
             fab:borderWidth="0.0dip"

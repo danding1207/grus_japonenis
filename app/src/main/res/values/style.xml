@@ -21,6 +21,10 @@
         <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
     </style>
 
+    <style name="AppTheme.Launch" parent="AppTheme.NoActionBar">
+        <item name="android:windowBackground">@drawable/launch_bg</item>
+    </style>
+
     <style name="font_blue_14">
         <item name="android:textSize">14.0sp</item>
         <item name="android:textColor">@color/appToolbarColor</item>

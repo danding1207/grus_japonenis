@@ -12,16 +12,16 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import com.msc.grus_japonenis.R;
 import com.msc.grus_japonenis.base.BaseActivity;
+import com.msc.grus_japonenis.dagger.DaggerMainActivityComponent;
+import com.msc.grus_japonenis.dagger.MainActivityModule;
 import com.msc.grus_japonenis.databinding.ActivityMainBinding;
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
 import com.msc.lib.utils.MCPTool;
 import com.msc.lib.widget.CustomTabItem;
 import javax.inject.Inject;
 
-public class MainActivity extends BaseActivity implements MainContract.View {
+public class MainActivity extends BaseActivity {
 
-    @Inject
-    MainPresenter mPresenter;
     @Inject
     MainViewModel mViewModel;
 
@@ -32,15 +32,13 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         super.onCreate(savedInstanceState);
         activityMainBinding = DataBindingUtil.setContentView(this, setContentViewIds());
         activityMainBinding.setMainViewModel(mViewModel);
-        mPresenter.attachView(this);
-        mPresenter.start();
         initView();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.onDestroy();
+        mViewModel.onDestroy();
     }
 
     @Override
@@ -57,7 +55,6 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 .inject(this);
     }
 
-    @Override
     public ActivityMainBinding getActivityMainBinding() {
         return activityMainBinding;
     }
@@ -66,11 +63,10 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         colorChange(this, ContextCompat.getColor(this, R.color.appToolbarColor));
         activityMainBinding.container.setOffscreenPageLimit(4);
         activityMainBinding.container.setAdapter(mViewModel.getSectionsPagerAdapter());
-        activityMainBinding.container.addOnPageChangeListener(mPresenter);
+        activityMainBinding.container.addOnPageChangeListener(mViewModel);
         activityMainBinding.tabs.setupWithViewPager(activityMainBinding.container);
         initTabLayout();
         requestViewPager();
-
 
         String ChannelId = MCPTool.getChannelId(this, "18120507", "-1");
         if (!ChannelId.equals("-1")) {
@@ -117,9 +113,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         }
     }
 
-    @Override
     public void showFab() {
-        if (!mPresenter.fabIsShown()) {
+        if (!mViewModel.fabIsShown()) {
             ViewCompat.animate(activityMainBinding.fab).cancel();
             ViewCompat.animate(activityMainBinding.fab).scaleX(1.0F).scaleY(1.0F).setListener(new ViewPropertyAnimatorListener() {
                 public void onAnimationCancel(View paramAnonymousView) {
@@ -132,11 +127,10 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                     activityMainBinding.fab.setVisibility(View.VISIBLE);
                 }
             }).setDuration(200L).start();
-            mPresenter.setFabIsShown(true);
+            mViewModel.setFabIsShown(true);
         }
     }
 
-    @Override
     public void showToolbar() {
         if (ViewCompat.getTranslationY(activityMainBinding.appbar) != 0.0F) {
             ViewCompat.animate(activityMainBinding.appbar).cancel();
@@ -146,9 +140,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         }
     }
 
-    @Override
     public void hideFab() {
-        if (mPresenter.fabIsShown()) {
+        if (mViewModel.fabIsShown()) {
             ViewCompat.animate(activityMainBinding.fab).cancel();
             ViewCompat.animate(activityMainBinding.fab).scaleX(0.0F).scaleY(0.0F).setListener(new ViewPropertyAnimatorListener() {
                 public void onAnimationCancel(View paramAnonymousView) {
@@ -163,11 +156,10 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                     activityMainBinding.fab.setVisibility(View.VISIBLE);
                 }
             }).setDuration(200L).start();
-            mPresenter.setFabIsShown(false);
+            mViewModel.setFabIsShown(false);
         }
     }
 
-    @Override
     public void hideToolbar() {
         float f = ViewCompat.getTranslationY(activityMainBinding.appbar);
         int i = activityMainBinding.fakeSearchView.getHeight();
@@ -181,6 +173,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void onBackPressed() {
-        mPresenter.onBackPressed();
+        mViewModel.onBackPressed();
     }
+
 }
