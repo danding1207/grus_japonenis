@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.View;
 
 public class UnitConversionUtils {
 
@@ -16,7 +17,7 @@ public class UnitConversionUtils {
      * @param dpValue dp值
      * @return 转换后px值
      */
-    public static int dipTopx(Context context, float dpValue) {
+    public static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
@@ -28,11 +29,6 @@ public class UnitConversionUtils {
      * @param pxValue px值
      * @return 转换后dp值
      */
-    public static int pxTodip(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
-    }
-
     public static int px2dip(Context context, float pxValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
@@ -42,7 +38,6 @@ public class UnitConversionUtils {
      * 将px值转换为sp值，保证文字大小不变  
      *
      * @param pxValue
-     * @param fontScale （DisplayMetrics类中属性scaledDensity）
      * @return          
      */
     public static int px2sp(Context context, float pxValue) {
@@ -54,7 +49,6 @@ public class UnitConversionUtils {
      * 将sp值转换为px值，保证文字大小不变         
      *
      * @param spValue            
-     * @param fontScale （DisplayMetrics类中属性scaledDensity）
      * @return          
      */
     public static int sp2px(Context context, float spValue) {
@@ -98,5 +92,40 @@ public class UnitConversionUtils {
         }
         return (int) actionBarHeight;
     }
+
+    /**
+     * 各种单位转换
+     * 该方法存在于TypedValue
+     */
+    public static float applyDimension(int unit, float value, DisplayMetrics metrics) {
+        switch (unit) {
+            case TypedValue.COMPLEX_UNIT_PX:
+                return value;
+            case TypedValue.COMPLEX_UNIT_DIP:
+                return value * metrics.density;
+            case TypedValue.COMPLEX_UNIT_SP:
+                return value * metrics.scaledDensity;
+            case TypedValue.COMPLEX_UNIT_PT:
+                return value * metrics.xdpi * (1.0f / 72);
+            case TypedValue.COMPLEX_UNIT_IN:
+                return value * metrics.xdpi;
+            case TypedValue.COMPLEX_UNIT_MM:
+                return value * metrics.xdpi * (1.0f / 25.4f);
+        }
+        return 0;
+    }
+
+    /**
+     * 在onCreate()即可获取View的尺寸
+     * @return 返回数组的第0个是宽，第1个是高，不要越界哦
+     */
+    public static int[] forceGetViewSize(View view) {
+        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        view.measure(widthMeasureSpec, heightMeasureSpec);
+        return new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
+    }
+
+
 
 }

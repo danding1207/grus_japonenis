@@ -30,6 +30,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
     <!--【非必选】若想知道 Crash 的时候，后台有哪些任务运行，请引入该权限-->
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
 
     <application
         android:name=".base.BaseApplication"

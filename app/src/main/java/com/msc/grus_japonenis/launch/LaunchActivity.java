@@ -7,7 +7,15 @@ import com.msc.grus_japonenis.R;
 import com.msc.grus_japonenis.base.BaseActivity;
 import com.msc.grus_japonenis.databinding.ActivityLaunchBinding;
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
+import com.msc.lib.net.AppService;
+import com.msc.lib.utils.GlideUtils;
+import com.oneapm.agent.android.OneApmAgent;
+import com.orhanobut.logger.Logger;
+import com.tencent.bugly.crashreport.CrashReport;
+
 import javax.inject.Inject;
+
+import me.majiajie.swipeback.utils.ActivityStack;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -25,7 +33,15 @@ public class LaunchActivity extends BaseActivity implements LaunchContract.View 
         super.onCreate(savedInstanceState);
         activityLaunchBinding = DataBindingUtil.setContentView(this, setContentViewIds());
         mPresenter.attachView(this);
-//        mLaunchActivityPrattachViewesenter.initView();
+
+        /**   Application 初始化操作分离至 LaunchActivity */
+        CrashReport.initCrashReport(getApplicationContext());
+        AppService.getInstance().initService(getApplicationContext());
+        GlideUtils.getInstance(getApplicationContext());
+        getApplication().registerActivityLifecycleCallbacks(ActivityStack.getInstance());
+        OneApmAgent.init(getApplicationContext()).setToken("0894B614C16F0E4F2F8C142592689AA387").start();
+        Logger.init("Inspiration");
+
     }
 
     @Override

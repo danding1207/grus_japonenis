@@ -23,23 +23,15 @@ public class BaseApplication extends Application {
     @Inject
     AppService appService;
 
-
     private static Context mContext;
     private static BaseApplication mApplication;
 
     ApplicationComponent mApplicationComponent;
-    public static InputMethodManager manager = null;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        CrashReport.initCrashReport(getApplicationContext());
-        AppService.getInstance().initService(getApplicationContext());
-        GlideUtils.getInstance(getApplicationContext());
-        this.registerActivityLifecycleCallbacks(ActivityStack.getInstance());
-        OneApmAgent.init(getApplicationContext()).setToken("0894B614C16F0E4F2F8C142592689AA387").start();
-        Logger.init("Inspiration");
-        manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
         mContext = getApplicationContext();
         mApplication = this;
     }
