@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Grus_japonenis.iml" filepath="$PROJECT_DIR$/Grus_japonenis.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/grus_japonenis.iml" filepath="$PROJECT_DIR$/grus_japonenis.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.injection/lib.injection.iml" filepath="$PROJECT_DIR$/lib.injection/lib.injection.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.lintrules-aar/lib.lintrules-aar.iml" filepath="$PROJECT_DIR$/lib.lintrules-aar/lib.lintrules-aar.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.net/lib.net.iml" filepath="$PROJECT_DIR$/lib.net/lib.net.iml" />
