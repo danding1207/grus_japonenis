@@ -18,7 +18,7 @@ import me.majiajie.swipeback.utils.ActivityStack;
 /**
  * Created by yb.wang on 15/10/28.
  */
-public class BaseApplication extends Application {
+public class BaseApplication extends MultiDexApplication {
 
     @Inject
     AppService appService;
@@ -34,6 +34,20 @@ public class BaseApplication extends Application {
 
         mContext = getApplicationContext();
         mApplication = this;
+
+        Tinker.init(this);
+        Tinker.setBackgroundPolicy(new Tinker.BackgroundPolicy() {
+            @Override
+            public boolean isReadyForFix() {
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        Tinker.onTrimMemory(level);
     }
 
     public static BaseApplication get() {

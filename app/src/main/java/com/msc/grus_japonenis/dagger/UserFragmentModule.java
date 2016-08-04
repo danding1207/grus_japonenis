@@ -3,7 +3,6 @@ package com.msc.grus_japonenis.dagger;
 import com.msc.grus_japonenis.lib.injection.ActivityScope;
 import com.msc.grus_japonenis.main.MainActivity;
 import com.msc.grus_japonenis.main.userfragment.UserFragment;
-import com.msc.grus_japonenis.main.userfragment.UserFragmentPresenter;
 import com.msc.grus_japonenis.main.userfragment.UserFragmentViewModel;
 import dagger.Module;
 import dagger.Provides;
@@ -15,13 +14,11 @@ import dagger.Provides;
 public class UserFragmentModule {
 
     private UserFragment userFragment;
-    private UserFragmentPresenter userFragmentPresenter;
     private MainActivity mainActivity;
 
     public UserFragmentModule(UserFragment userFragment) {
         this.userFragment = userFragment;
         mainActivity = (MainActivity) userFragment.getActivity();
-        userFragmentPresenter = new UserFragmentPresenter(mainActivity);
     }
 
     @Provides
@@ -32,14 +29,8 @@ public class UserFragmentModule {
 
     @Provides
     @ActivityScope
-    UserFragmentPresenter provideUserFragmentPresenter() {
-        return new UserFragmentPresenter(mainActivity);
-    }
-
-    @Provides
-    @ActivityScope
     UserFragmentViewModel provideUserFragmentViewModel() {
-        return new UserFragmentViewModel(mainActivity, userFragmentPresenter);
+        return new UserFragmentViewModel(mainActivity, userFragment);
     }
 
 }

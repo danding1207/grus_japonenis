@@ -1,6 +1,5 @@
 package com.msc.grus_japonenis.main.userfragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,23 +12,18 @@ import com.msc.grus_japonenis.dagger.UserFragmentModule;
 import com.msc.grus_japonenis.databinding.FragmentUserBinding;
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
 import com.msc.lib.net.bean.Unread;
-import com.msc.lib.net.bean.User;
 
 import javax.inject.Inject;
 
 /**
  * Created by msc on 2016/3/28.
  */
-public class UserFragment extends BaseFragment implements UserFragmentContract.View {
+public class UserFragment extends BaseFragment {
 
-    @Inject
-    UserFragmentPresenter userFragmentPresenter;
     @Inject
     UserFragmentViewModel mViewModel;
 
     private static UserFragment instance;
-    private Activity activity;
-
 
     private FragmentUserBinding mFragmentUserBinding;
 
@@ -50,7 +44,6 @@ public class UserFragment extends BaseFragment implements UserFragmentContract.V
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        activity = getActivity();
     }
 
     @Override
@@ -64,9 +57,7 @@ public class UserFragment extends BaseFragment implements UserFragmentContract.V
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        userFragmentPresenter.attachView(this);
         initView();
-        userFragmentPresenter.start();
     }
 
     private void initView() {
@@ -82,25 +73,23 @@ public class UserFragment extends BaseFragment implements UserFragmentContract.V
                 .inject(this);
     }
 
-    @Override
     public FragmentUserBinding getFragmentUserBinding() {
         return mFragmentUserBinding;
     }
 
-    @Override
-    public void setUserResult(User result) {
-        mViewModel.setUser(result);
-        mViewModel.setUserFragmentShow(true);
-    }
-
-    @Override
     public void setUnreadResult(Unread result) {
         mViewModel.setUnread(result);
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        mViewModel.onResume();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
-        userFragmentPresenter.onResume();
+        mViewModel.onResume();
     }
 }
