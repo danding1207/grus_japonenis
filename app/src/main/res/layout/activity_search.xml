@@ -92,7 +92,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:onClick="@{() -> searchViewModel.getPresenter().destination(searchViewModel.getDestinationsSearch().getData().getDestinations().get(0).getId())}"
+                        android:onClick="@{() -> searchViewModel.destination(searchViewModel.getDestinationsSearch().getData().getDestinations().get(0).getId())}"
                         >
 
                         <ImageView
@@ -144,7 +144,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:onClick="@{() -> searchViewModel.getPresenter().destination(searchViewModel.getDestinationsSearch().getData().getDestinations().get(1).getId())}"
+                        android:onClick="@{() -> searchViewModel.destination(searchViewModel.getDestinationsSearch().getData().getDestinations().get(1).getId())}"
 
                         android:visibility="@{searchViewModel.isDestinations2Show ? View.VISIBLE : View.GONE}">
 
@@ -198,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:visibility="@{searchViewModel.isDestinations3Show ? View.VISIBLE : View.GONE}"
-                        android:onClick="@{() -> searchViewModel.getPresenter().destination(searchViewModel.getDestinationsSearch().getData().getDestinations().get(2).getId())}"
+                        android:onClick="@{() -> searchViewModel.destination(searchViewModel.getDestinationsSearch().getData().getDestinations().get(2).getId())}"
                         >
 
                         <ImageView
@@ -253,7 +253,7 @@
                         android:textColor="@color/appTextColor"
                         android:textSize="20sp"
                         android:visibility="@{searchViewModel.isDestinationsTipShow ? View.VISIBLE : View.GONE}"
-                        android:onClick="@{() -> searchViewModel.getPresenter().destinationTip()}"
+                        android:onClick="@{() -> searchViewModel.destinationTip()}"
                         />
 
                 </LinearLayout>
@@ -288,7 +288,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:onClick="@{() -> searchViewModel.getPresenter().plan(searchViewModel.getDestinationsSearch().getData().getUser_activities().get(0).getId())}"
+                        android:onClick="@{() -> searchViewModel.plan(searchViewModel.getDestinationsSearch().getData().getUser_activities().get(0).getId())}"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -340,7 +340,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:onClick="@{() -> searchViewModel.getPresenter().plan(searchViewModel.getDestinationsSearch().getData().getUser_activities().get(1).getId())}"
+                        android:onClick="@{() -> searchViewModel.plan(searchViewModel.getDestinationsSearch().getData().getUser_activities().get(1).getId())}"
                         android:visibility="@{searchViewModel.isPlans2Show ? View.VISIBLE : View.GONE}">
 
                         <ImageView
@@ -392,7 +392,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:onClick="@{() -> searchViewModel.getPresenter().plan(searchViewModel.getDestinationsSearch().getData().getUser_activities().get(2).getId())}"
+                        android:onClick="@{() -> searchViewModel.plan(searchViewModel.getDestinationsSearch().getData().getUser_activities().get(2).getId())}"
                         android:visibility="@{searchViewModel.isPlans3Show ? View.VISIBLE : View.GONE}">
 
                         <ImageView
@@ -443,7 +443,7 @@
                         android:gravity="center"
                         android:paddingTop="10dp"
                         android:text="更多相关游记"
-                        android:onClick="@{() -> searchViewModel.getPresenter().planTip()}"
+                        android:onClick="@{() -> searchViewModel.planTip()}"
                         android:textColor="@color/appTextColor"
                         android:textSize="20sp"
                         />
@@ -477,7 +477,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:onClick="@{() -> searchViewModel.getPresenter().user(searchViewModel.getDestinationsSearch().getData().getUsers().get(0).getId())}"
+                        android:onClick="@{() -> searchViewModel.user(searchViewModel.getDestinationsSearch().getData().getUsers().get(0).getId())}"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -506,7 +506,7 @@
                         android:layout_marginTop="10dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:onClick="@{() -> searchViewModel.getPresenter().user(searchViewModel.getDestinationsSearch().getData().getUsers().get(1).getId())}"
+                        android:onClick="@{() -> searchViewModel.user(searchViewModel.getDestinationsSearch().getData().getUsers().get(1).getId())}"
                         android:visibility="@{searchViewModel.isUsers2Show ? View.VISIBLE : View.GONE}">
 
                         <ImageView

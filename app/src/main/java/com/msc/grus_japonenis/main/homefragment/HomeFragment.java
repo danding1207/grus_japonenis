@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.msc.grus_japonenis.base.BaseFragment;
+import com.msc.grus_japonenis.dagger.DaggerHomeFragmentComponent;
+import com.msc.grus_japonenis.dagger.HomeFragmentModule;
 import com.msc.grus_japonenis.databinding.FragmentHomeBinding;
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
 import javax.inject.Inject;
@@ -14,12 +16,12 @@ import javax.inject.Inject;
 /**
  * Created by msc on 2016/3/28.
  */
-public class HomeFragment extends BaseFragment implements HomeFragmentContract.View {
+public class HomeFragment extends BaseFragment {
 
     @Inject
     DestinationsListAdapter mDestinationsListAdapter;
     @Inject
-    HomeFragmentPresenter mHomeFragmentPresenter;
+    HomeFragmentViewModel mViewModel;
 
     private static HomeFragment instance;
 
@@ -54,9 +56,13 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mHomeFragmentPresenter.attachView(this);
         initView();
-        mHomeFragmentPresenter.start();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mViewModel.onStart();
     }
 
     @Override
@@ -67,7 +73,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     private void initView() {
         mFragmentHomeBinding.observableRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mFragmentHomeBinding.observableRecyclerView.setHasFixedSize(true);
-        mFragmentHomeBinding.observableRecyclerView.setScrollViewCallbacks(mHomeFragmentPresenter);
+        mFragmentHomeBinding.observableRecyclerView.setScrollViewCallbacks(mViewModel);
         mFragmentHomeBinding.observableRecyclerView.setAdapter(mDestinationsListAdapter);
     }
 
@@ -80,12 +86,10 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
                 .inject(this);
     }
 
-    @Override
     public FragmentHomeBinding getFragmentHomeBinding() {
         return mFragmentHomeBinding;
     }
 
-    @Override
     public DestinationsListAdapter getDestinationsListAdapter() {
         return mDestinationsListAdapter;
     }
@@ -93,12 +97,12 @@ public class HomeFragment extends BaseFragment implements HomeFragmentContract.V
     @Override
     public void onResume() {
         super.onResume();
-        mHomeFragmentPresenter.onResume();
+        mViewModel.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mHomeFragmentPresenter.onPause();
+        mViewModel.onPause();
     }
 }

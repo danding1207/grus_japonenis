@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginRight="12dp"
-                    android:onClick="@{() -> publishViewModel.getPresenter().publish()}"
+                    android:onClick="@{() -> publishViewModel.publish()}"
                     android:src="@drawable/icon_create_trip" />
             </android.support.v7.widget.Toolbar>
 
@@ -109,7 +109,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:onClick="@{() -> publishViewModel.getPresenter().date()}"
+                    android:onClick="@{() -> publishViewModel.date()}"
                     android:paddingBottom="12dp"
                     android:paddingTop="12dp">
 
@@ -143,7 +143,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingBottom="12dp"
-                    android:onClick="@{() -> publishViewModel.getPresenter().poi()}"
+                    android:onClick="@{() -> publishViewModel.poi()}"
                     android:paddingTop="12dp">
 
                     <ImageView
@@ -174,7 +174,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center_vertical"
-                    android:onClick="@{() -> publishViewModel.getPresenter().tag()}"
+                    android:onClick="@{() -> publishViewModel.tag()}"
                     android:orientation="horizontal"
                     android:paddingBottom="12dp"
                     android:paddingTop="12dp">

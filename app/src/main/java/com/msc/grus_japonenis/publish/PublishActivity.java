@@ -11,11 +11,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 
+import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.jakewharton.rxbinding.widget.TextViewTextChangeEvent;
 import com.msc.grus_japonenis.R;
 import com.msc.grus_japonenis.base.BaseActivity;
 import com.msc.grus_japonenis.base.BaseSwipeBackActivity;
+import com.msc.grus_japonenis.dagger.DaggerPublishActivityComponent;
+import com.msc.grus_japonenis.dagger.PublishActivityModule;
 import com.msc.grus_japonenis.databinding.ActivityPublishBinding;
 import com.msc.grus_japonenis.databinding.ActivitySearchBinding;
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
@@ -30,14 +33,14 @@ import javax.inject.Inject;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class PublishActivity extends BaseSwipeBackActivity implements PublishContract.View {
+public class PublishActivity extends BaseSwipeBackActivity {
 
-    @Inject
-    PublishPresenter mPresenter;
     @Inject
     PublishViewModel mViewModel;
     @Inject
     PublishPicAdapter mAdapter;
+    @Inject
+    DatePickerDialog mDialog;
 
     private ActivityPublishBinding activityPublishBinding;
 
@@ -46,9 +49,13 @@ public class PublishActivity extends BaseSwipeBackActivity implements PublishCon
         super.onCreate(savedInstanceState);
         activityPublishBinding = DataBindingUtil.setContentView(this, setContentViewIds());
         activityPublishBinding.setPublishViewModel(mViewModel);
-        mPresenter.attachView(this);
         initView();
-        mPresenter.start();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mViewModel.onStart();
     }
 
     @Override
@@ -65,12 +72,9 @@ public class PublishActivity extends BaseSwipeBackActivity implements PublishCon
                 .inject(this);
     }
 
-    @Override
     public ActivityPublishBinding getActivityPublishBinding() {
         return activityPublishBinding;
     }
-
-
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void initView() {
@@ -91,17 +95,16 @@ public class PublishActivity extends BaseSwipeBackActivity implements PublishCon
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mPresenter.result( requestCode, resultCode, data);
+        mViewModel.onActivityResult( requestCode, resultCode, data);
     }
 
-    @Override
     public void setPic(ArrayList<Uri> mSelectedPic) {
         mAdapter.updata(mSelectedPic);
     }
 
-    @Override
-    public void setDate(String date) {
-        mViewModel.setDate(date);
+    public void showDatePickerDialog() {
+        mDialog.setYearRange(1985, 2028);
+        mDialog.setCloseOnSingleTapDay(false);
+        mDialog.show(this.getSupportFragmentManager(), PublishViewModel.DATEPICKER_TAG);
     }
-
 }

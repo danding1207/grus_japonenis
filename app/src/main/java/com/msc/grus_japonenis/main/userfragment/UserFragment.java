@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.msc.grus_japonenis.base.BaseFragment;
+import com.msc.grus_japonenis.dagger.DaggerUserFragmentComponent;
+import com.msc.grus_japonenis.dagger.UserFragmentModule;
 import com.msc.grus_japonenis.databinding.FragmentUserBinding;
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
 import com.msc.lib.net.bean.Unread;

@@ -1,5 +1,7 @@
-package com.msc.grus_japonenis.launch;
+package com.msc.grus_japonenis.dagger;
 
+import com.msc.grus_japonenis.launch.LaunchActivity;
+import com.msc.grus_japonenis.launch.LaunchViewModel;
 import com.msc.grus_japonenis.lib.injection.ActivityScope;
 
 import dagger.Module;
@@ -25,14 +27,8 @@ public class LaunchActivityModule {
 
     @Provides
     @ActivityScope
-    LaunchPresenter provideLaunchPresenter() {
-        return new LaunchPresenter(launchActivity);
+    LaunchViewModel provideLaunchViewModel() {
+        return new LaunchViewModel(launchActivity);
     }
-
-//    @Provides
-//    @ActivityScope
-//    EmbellishDialog provideEmbellishDialog(LaunchActivity launchActivity) {
-//        return new EmbellishDialog(launchActivity, 4);
-//    }
 
 }

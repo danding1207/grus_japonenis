@@ -42,7 +42,7 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
     public static final int NEARBYVIEWHOLDER = 0013;
 
     private static Activity context;
-    private static HomeFragmentPresenter homeFragmentPresenter;
+    private static HomeFragmentViewModel homeFragmentViewModel;
     private Destinations destinations;
     private DestinationsNearby destinationsNearby;
     private Adverts adverts;
@@ -52,9 +52,9 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
     private static int height;
     private static int h;
 
-    public DestinationsListAdapter(Activity context, HomeFragmentPresenter homeFragmentPresenter) {
+    public DestinationsListAdapter(Activity context, HomeFragmentViewModel homeFragmentViewModel) {
         this.context = context;
-        this.homeFragmentPresenter = homeFragmentPresenter;
+        this.homeFragmentViewModel = homeFragmentViewModel;
         DisplayMetrics metric = new DisplayMetrics();
         context.getWindowManager().getDefaultDisplay().getMetrics(metric);
         width = metric.widthPixels;     // 屏幕宽度（像素）
@@ -153,8 +153,8 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
                         //设置指示器的方向
                         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
 //                .setOnPageChangeListener(this)//监听翻页事件
-                        .setOnItemClickListener(homeFragmentPresenter);
-                homeFragmentPresenter.setConvenientBanner(destinationsListItemHeaderBinding.convenientBanner);
+                        .setOnItemClickListener(homeFragmentViewModel);
+                homeFragmentViewModel.setConvenientBanner(destinationsListItemHeaderBinding.convenientBanner);
                 destinationsListItemHeaderBinding.convenientBanner.stopTurning();
                 destinationsListItemHeaderBinding.convenientBanner.startTurning(3000);
             }
@@ -184,7 +184,7 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
 
         public void bind(Destinations.DataEntity.DestinationsEntity[] destinations) {
-            destinationsListItemTitleBinding.setPresenter(homeFragmentPresenter);
+            destinationsListItemTitleBinding.setViewModel(homeFragmentViewModel);
             destinationsListItemTitleBinding.setArray(destinations);
         }
     }
@@ -211,7 +211,7 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
 
         public void bind(DestinationsNearby destinationsNearby) {
-            destinationsListItemNearbyBinding.setPresenter(homeFragmentPresenter);
+            destinationsListItemNearbyBinding.setViewModel(homeFragmentViewModel);
 
             destinationsListItemNearbyBinding.setArray(new DestinationsNearby.DataBean[]{destinationsNearby.getData().get(0), destinationsNearby.getData().get(1), destinationsNearby.getData().get(2)});
         }
@@ -239,7 +239,7 @@ public class DestinationsListAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
 
         public void bind(Destinations.DataEntity.DestinationsEntity[] destinations) {
-            destinationsListItemNormalBinding.setPresenter(homeFragmentPresenter);
+            destinationsListItemNormalBinding.setViewModel(homeFragmentViewModel);
             destinationsListItemNormalBinding.setArray(destinations);
         }
     }

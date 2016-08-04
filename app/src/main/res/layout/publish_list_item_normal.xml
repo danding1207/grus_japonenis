@@ -14,10 +14,6 @@
         <variable
             name="isCover"
             type="Boolean" />
-
-        <variable
-            name="presenter"
-            type="com.msc.grus_japonenis.publish.PublishPresenter" />
     </data>
 
     <FrameLayout

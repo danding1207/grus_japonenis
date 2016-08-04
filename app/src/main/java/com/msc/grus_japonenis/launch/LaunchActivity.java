@@ -1,10 +1,11 @@
 package com.msc.grus_japonenis.launch;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import com.msc.grus_japonenis.R;
 import com.msc.grus_japonenis.base.BaseActivity;
+import com.msc.grus_japonenis.dagger.DaggerLaunchActivityComponent;
+import com.msc.grus_japonenis.dagger.LaunchActivityModule;
 import com.msc.grus_japonenis.databinding.ActivityLaunchBinding;
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
 import com.msc.lib.net.AppService;
@@ -21,10 +22,10 @@ import me.majiajie.swipeback.utils.ActivityStack;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class LaunchActivity extends BaseActivity implements LaunchContract.View {
+public class LaunchActivity extends BaseActivity {
 
     @Inject
-    LaunchPresenter mPresenter;
+    LaunchViewModel mViewModel;
 
     private ActivityLaunchBinding activityLaunchBinding;
 
@@ -32,7 +33,6 @@ public class LaunchActivity extends BaseActivity implements LaunchContract.View 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityLaunchBinding = DataBindingUtil.setContentView(this, setContentViewIds());
-        mPresenter.attachView(this);
         /**   Application 初始化操作分离至 LaunchActivity */
         CrashReport.initCrashReport(getApplicationContext());
         AppService.getInstance().initService(getApplicationContext());
@@ -45,17 +45,7 @@ public class LaunchActivity extends BaseActivity implements LaunchContract.View 
     @Override
     protected void onStart() {
         super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.start();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mPresenter.result(requestCode, resultCode);
+        mViewModel.onStart();
     }
 
     @Override

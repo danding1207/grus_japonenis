@@ -17,37 +17,50 @@
 package com.msc.grus_japonenis.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.msc.grus_japonenis.BR;
 import com.msc.grus_japonenis.base.BaseActivity;
 import com.msc.grus_japonenis.base.BaseSwipeBackActivity;
+import com.msc.grus_japonenis.lib.injection.ViewModel;
+import com.msc.lib.net.AppService;
 import com.msc.lib.net.bean.DestinationsSearch;
+import com.msc.lib.net.event.Constant;
+import com.msc.lib.net.event.DestinationsSearchEvent;
+import com.msc.lib.utils.SnackbarUtils;
 import com.orhanobut.logger.Logger;
 
 /**
- * Exposes the data to be used in the {@link SearchContract.View}.
+ * Exposes the data to be used in the {@link SearchActivity}.
  * <p>
  * {@link BaseObservable} implements a listener registration mechanism which is notified when a
  * property changes. This is done by assigning a {@link Bindable} annotation to the property's
  * getter method.
  */
-public class SearchViewModel extends BaseObservable {
-
-    private final SearchPresenter mPresenter;
+public class SearchViewModel extends BaseObservable implements ViewModel {
 
     private DestinationsSearch destinationsSearch;
 
-    private Context mContext;
+    private SearchActivity searchActivity;
 
     private boolean isProgressBarShow;
 
-    public SearchViewModel(BaseSwipeBackActivity context, SearchPresenter presenter) {
-        mContext = context;
-        mPresenter = presenter;
+    private int destinationid;
+    private String destinationname;
+
+    public SearchViewModel(SearchActivity searchActivity) {
+        this.searchActivity = searchActivity;
     }
 
+    /**  数据绑定 */
     public void setProgressBarShow(boolean progressBarShow) {
         isProgressBarShow = progressBarShow;
         notifyPropertyChanged(BR.progressBarShow);
@@ -93,10 +106,6 @@ public class SearchViewModel extends BaseObservable {
         notifyPropertyChanged(BR.users2Show);
         notifyPropertyChanged(BR.user1Url);
         notifyPropertyChanged(BR.user2Url);
-    }
-
-    public SearchPresenter getPresenter() {
-        return mPresenter;
     }
 
     @Bindable
@@ -271,10 +280,100 @@ public class SearchViewModel extends BaseObservable {
     }
 
 
+    /**  生命周期 */
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public void onStart() {
+        destinationid = searchActivity.getIntent().getIntExtra("DestinationId", -1);
+        destinationname = searchActivity.getIntent().getStringExtra("DestinationName");
+        searchActivity.setSearchText(destinationname);
+        if (destinationid != -1) {
+            serach("destination", destinationid+"");
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+    }
+
+    @Override
+    public void onStop() {
+
+    }
+
+    @Override
+    public void onDestroyView() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    }
 
 
 
 
+    /**  业务处理 */
+    void serach(String type, String s) {
+        setProgressBarShow(true);
+        setDestinationsSearch(null);
+        AppService.getInstance().getDestinationsSearch(searchActivity, searchActivity.getTaskId(), type , s);
+    }
+
+    /**
+     * 目的地搜索
+     */
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD
+    )
+    public void result(DestinationsSearchEvent event) {
+        setProgressBarShow(false);
+        if (event.getmEventResult().equals(Constant.Result.SUCCESSS)) {
+            Logger.e("成功");
+            if (event.getResult() != null) {
+                setDestinationsSearch(event.getResult());
+            }
+        } else if (event.getmEventResult().equals(Constant.Result.FAIL)) {
+//            AppNetSession.doException(gasFeeActivity, event.getThrowable());
+            Logger.e("失败");
+        }
+    }
+
+    public void destination(int id) {
+        Logger.e("destination");
+        SnackbarUtils.toast(searchActivity.getActivitySearchBinding().mainContent, "destination:"+id, Snackbar.LENGTH_SHORT);
+    }
+
+    public void destinationTip() {
+        Logger.e("destinationTip");
+        SnackbarUtils.toast(searchActivity.getActivitySearchBinding().mainContent, "destinationTip", Snackbar.LENGTH_SHORT);
+    }
+
+    public void plan(int id) {
+        Logger.e("plan");
+        SnackbarUtils.toast(searchActivity.getActivitySearchBinding().mainContent, "plan:"+id, Snackbar.LENGTH_SHORT);
+    }
+
+    public void planTip() {
+        Logger.e("planTip");
+        SnackbarUtils.toast(searchActivity.getActivitySearchBinding().mainContent, "planTip", Snackbar.LENGTH_SHORT);
+    }
+
+    public void user(int id) {
+        Logger.e("user");
+        SnackbarUtils.toast(searchActivity.getActivitySearchBinding().mainContent, "user:"+id, Snackbar.LENGTH_SHORT);
+    }
 
 
 

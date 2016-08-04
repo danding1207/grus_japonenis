@@ -79,7 +79,6 @@ public class MainViewModel extends BaseObservable implements ViewModel, ViewPage
     }
 
     /**  数据绑定 */
-
     @Bindable
     public SectionsPagerAdapter getSectionsPagerAdapter() {
         return adapter;

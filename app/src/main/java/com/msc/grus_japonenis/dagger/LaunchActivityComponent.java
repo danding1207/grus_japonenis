@@ -1,5 +1,7 @@
-package com.msc.grus_japonenis.launch;
+package com.msc.grus_japonenis.dagger;
 
+import com.msc.grus_japonenis.launch.LaunchActivity;
+import com.msc.grus_japonenis.launch.LaunchViewModel;
 import com.msc.grus_japonenis.lib.injection.ActivityScope;
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
 
@@ -12,5 +14,5 @@ import dagger.Component;
 @Component(modules = LaunchActivityModule.class,dependencies = ApplicationComponent.class)
 public interface LaunchActivityComponent {
     LaunchActivity inject(LaunchActivity launchActivity);
-    LaunchPresenter presenter();
+    LaunchViewModel viewModel();
 }

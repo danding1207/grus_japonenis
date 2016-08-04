@@ -8,8 +8,8 @@
         <import type="android.view.View"/>
 
         <variable
-            name="presenter"
-            type="com.msc.grus_japonenis.publish.PublishPresenter"/>
+            name="viewModel"
+            type="com.msc.grus_japonenis.publish.PublishViewModel"/>
 
     </data>
 
@@ -17,7 +17,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@drawable/bg_photo_add"
-        android:onClick="@{() -> presenter.pickpic()}"
+        android:onClick="@{() -> viewModel.pickpic()}"
         >
 
         <ImageView

@@ -1,7 +1,10 @@
-package com.msc.grus_japonenis.main.homefragment;
+package com.msc.grus_japonenis.dagger;
 
 import com.msc.grus_japonenis.lib.injection.ActivityScope;
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
+import com.msc.grus_japonenis.main.homefragment.DestinationsListAdapter;
+import com.msc.grus_japonenis.main.homefragment.HomeFragment;
+import com.msc.grus_japonenis.main.homefragment.HomeFragmentViewModel;
 
 import dagger.Component;
 
@@ -11,8 +14,7 @@ import dagger.Component;
 @ActivityScope
 @Component(modules = HomeFragmentModule.class,dependencies = ApplicationComponent.class)
 public interface HomeFragmentComponent {
-//    MainViewModel viewModel();
     void inject(HomeFragment homeFragment);
-    HomeFragmentPresenter presenter();
+    HomeFragmentViewModel viewModel();
     DestinationsListAdapter adapter();
 }

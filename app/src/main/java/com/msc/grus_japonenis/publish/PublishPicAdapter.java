@@ -50,12 +50,12 @@ public class PublishPicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static int width;
     private static int height;
     private static int h;
-    private PublishPresenter mPresenter;
+    private PublishViewModel mViewModel;
 
-    public PublishPicAdapter(Activity activity, ArrayList<Uri> mSelectedPic, PublishPresenter mPresenter) {
+    public PublishPicAdapter(Activity activity, ArrayList<Uri> mSelectedPic, PublishViewModel mViewModel) {
         this.activity = activity;
         this.mSelectedPic = mSelectedPic;
-        this.mPresenter = mPresenter;
+        this.mViewModel = mViewModel;
         DisplayMetrics metric = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(metric);
         width = metric.widthPixels;     // 屏幕宽度（像素）
@@ -133,7 +133,7 @@ public class PublishPicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         public void bind(int position) {
-            publishListItemAddBinding.setPresenter(mPresenter);
+            publishListItemAddBinding.setViewModel(mViewModel);
         }
 
         @Override

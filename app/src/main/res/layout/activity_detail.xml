@@ -7,10 +7,6 @@
 
         <import type="android.view.View" />
 
-        <variable
-            name="mainViewModel"
-            type="com.msc.grus_japonenis.main.MainViewModel" />
-
     </data>
 
     <android.support.design.widget.CoordinatorLayout

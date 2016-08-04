@@ -16,81 +16,195 @@
 
 package com.msc.grus_japonenis.main.homefragment;
 
-import android.content.Context;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.support.v4.app.Fragment;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 
-import com.msc.grus_japonenis.MyPlanFragment;
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.msc.grus_japonenis.R;
-import com.msc.grus_japonenis.UserFansFragment;
-import com.msc.grus_japonenis.base.BaseActivity;
-import com.msc.grus_japonenis.main.SectionsPagerAdapter;
-import com.msc.grus_japonenis.main.userfragment.UserFragment;
+import com.msc.grus_japonenis.lib.injection.ViewModel;
+import com.msc.grus_japonenis.main.MainActivity;
+import com.msc.grus_japonenis.search.SearchActivity;
+import com.msc.lib.net.AppService;
+import com.msc.lib.net.event.AdvertsEvent;
+import com.msc.lib.net.event.Constant;
+import com.msc.lib.net.event.DestinationsEvent;
+import com.msc.lib.net.event.DestinationsNearbyEvent;
+import com.msc.lib.utils.CircularAnimUtil;
+import com.msc.lib.utils.SnackbarUtils;
 import com.orhanobut.logger.Logger;
 
 /**
- * Exposes the data to be used in the {@link HomeFragmentContract.View}.
+ * Exposes the data to be used in the {@link HomeFragment, MainActivity}.
  * <p>
  * {@link BaseObservable} implements a listener registration mechanism which is notified when a
  * property changes. This is done by assigning a {@link Bindable} annotation to the property's
  * getter method.
  */
-public class HomeFragmentViewModel extends BaseObservable {
+public class HomeFragmentViewModel extends BaseObservable implements ViewModel, ObservableScrollViewCallbacks, OnItemClickListener {
 
-    private boolean mFabIsShown = false;
-    private static final int[] sIcon = new int[]{R.drawable.icon_tab_home, R.drawable.icon_tab_trip, R.drawable.icon_tab_plan, R.drawable.icon_tab_my};
-    private static final String[] sTitles = new String[]{"攻略", "游记", "行程", "我的"};
-    private static final Fragment[] sFragment = new Fragment[]{HomeFragment.newInstance(), UserFansFragment.newInstance(), MyPlanFragment.newInstance(), UserFragment.newInstance()};
+    private HomeFragment homeFragment;
+    private MainActivity mainActivity;
+    private ConvenientBanner convenientBanner;
 
-    private final HomeFragmentContract.Presenter mPresenter;
-
-    private SectionsPagerAdapter adapter;
-
-    private Context mContext;
-
-    public HomeFragmentViewModel(BaseActivity context, HomeFragmentContract.Presenter presenter) {
-        mContext = context;
-        mPresenter = presenter;
-        adapter = new SectionsPagerAdapter(context.getSupportFragmentManager(), sFragment, sTitles);
+    public HomeFragmentViewModel(MainActivity mainActivity, HomeFragment homeFragment) {
+        this.homeFragment = homeFragment;
+        this.mainActivity = mainActivity;
     }
 
-    @Bindable
-    public SectionsPagerAdapter getSectionsPagerAdapter() {
-        return adapter;
+    /**  生命周期 */
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
     }
 
-    public HomeFragmentContract.Presenter getPresenter() {
-        Logger.e("getPresenter");
-        return mPresenter;
+    @Override
+    public void onStart() {
+        AppService.getInstance().getAdverts(homeFragment.getActivity(),homeFragment.getActivity().getTaskId());
+        AppService.getInstance().getDestinations(homeFragment.getActivity(),homeFragment.getActivity().getTaskId());
     }
 
-    @Bindable
-    public boolean isFabIsShown() {
-        return mFabIsShown;
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
     }
 
-    @Bindable
-    public int[] getIcon() {
-        return sIcon;
+    @Override
+    public void onStop() {
+
     }
 
-    @Bindable
-    public String[] getTitles() {
-        return sTitles;
+    public void onResume() {
+        if(convenientBanner!=null) {
+            convenientBanner.stopTurning();
+            convenientBanner.startTurning(3000);
+        }
     }
 
-    @Bindable
-    public Fragment[] getFragments() {
-        return sFragment;
+    public void onPause() {
+        if(convenientBanner!=null) {
+            convenientBanner.stopTurning();
+        }
     }
 
-//    public void setTaskListSize(int taskListSize) {
-//        mTaskListSize = taskListSize;
-//        notifyPropertyChanged(BR.noTaskIconRes);
-//        notifyPropertyChanged(BR.noTasksLabel);
-//        notifyPropertyChanged(BR.currentFilteringLabel);
-//        notifyPropertyChanged(BR.notEmpty);
-//        notifyPropertyChanged(BR.tasksAddViewVisible);
-//    }
+    @Override
+    public void onDestroyView() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    }
+
+
+    /**  业务处理 */
+    /**
+     * 攻略主题
+     */
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD
+    )
+    public void result(AdvertsEvent event) {
+        if (event.getmEventResult().equals(Constant.Result.SUCCESSS)) {
+            Logger.e("成功");
+            if (event.getResult() != null) {
+                homeFragment.getDestinationsListAdapter().setAdverts(event.getResult());
+            }
+        } else if (event.getmEventResult().equals(Constant.Result.FAIL)) {
+//            AppNetSession.doException(gasFeeActivity, event.getThrowable());
+            Logger.e("失败");
+        }
+    }
+
+    /**
+     * 攻略主题
+     */
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD
+    )
+    public void result(DestinationsEvent event) {
+        if (event.getmEventResult().equals(Constant.Result.SUCCESSS)) {
+            Logger.e("成功");
+            if (event.getResult() != null) {
+                homeFragment.getDestinationsListAdapter().setDestinations(event.getResult());
+            }
+        } else if (event.getmEventResult().equals(Constant.Result.FAIL)) {
+//            AppNetSession.doException(gasFeeActivity, event.getThrowable());
+            Logger.e("失败");
+        }
+    }
+
+    /**
+     * 附近目的地
+     */
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD
+    )
+    public void result(DestinationsNearbyEvent event) {
+        if (event.getmEventResult().equals(Constant.Result.SUCCESSS)) {
+            Logger.e("成功");
+            if (event.getResult() != null) {
+                homeFragment.getDestinationsListAdapter().setDestinationsNearby(event.getResult());
+            }
+        } else if (event.getmEventResult().equals(Constant.Result.FAIL)) {
+//            AppNetSession.doException(gasFeeActivity, event.getThrowable());
+            Logger.e("失败");
+        }
+    }
+
+    @Override
+    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+        if (scrollState == ScrollState.UP) {
+            mainActivity.hideToolbar();
+        } else if (scrollState == ScrollState.DOWN) {
+            mainActivity.showToolbar();
+        }
+    }
+
+    public void onClick(View view, int id, String name) {
+        Logger.d("id--->"+id);
+        Intent intent = new Intent(mainActivity, SearchActivity.class);
+        intent.putExtra("DestinationId", id);
+        intent.putExtra("DestinationName", name);
+        CircularAnimUtil.startActivity(mainActivity, intent, view, R.color.appToolbarColor);
+    }
+
+    public void onClickMoreNearby(View view) {
+        SnackbarUtils.toast(mainActivity.getActivityMainBinding().mainContent, "点击了更多附近目的地", Snackbar.LENGTH_SHORT);
+    }
+
+    public void onItemClick(int position) {
+        SnackbarUtils.toast(mainActivity.getActivityMainBinding().mainContent, "点击了第" + position + "页", Snackbar.LENGTH_SHORT);
+    }
+
+    public void setConvenientBanner(ConvenientBanner convenientBanner) {
+        this.convenientBanner = convenientBanner;
+    }
+
+
 }

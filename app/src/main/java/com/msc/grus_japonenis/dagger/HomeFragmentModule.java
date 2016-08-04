@@ -1,7 +1,11 @@
-package com.msc.grus_japonenis.main.homefragment;
+package com.msc.grus_japonenis.dagger;
 
 import com.msc.grus_japonenis.lib.injection.ActivityScope;
 import com.msc.grus_japonenis.main.MainActivity;
+import com.msc.grus_japonenis.main.homefragment.DestinationsListAdapter;
+import com.msc.grus_japonenis.main.homefragment.HomeFragment;
+import com.msc.grus_japonenis.main.homefragment.HomeFragmentViewModel;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -12,13 +16,13 @@ import dagger.Provides;
 public class HomeFragmentModule {
 
     private HomeFragment homeFragment;
-    private HomeFragmentPresenter homeFragmentPresenter;
     private MainActivity mainActivity;
+    private HomeFragmentViewModel homeFragmentViewModel;
 
     public HomeFragmentModule(HomeFragment homeFragment) {
         this.homeFragment = homeFragment;
         mainActivity = (MainActivity) homeFragment.getActivity();
-        homeFragmentPresenter = new HomeFragmentPresenter(mainActivity);
+        homeFragmentViewModel = new HomeFragmentViewModel(mainActivity, homeFragment);
     }
 
     @Provides
@@ -29,20 +33,14 @@ public class HomeFragmentModule {
 
     @Provides
     @ActivityScope
-    HomeFragmentPresenter provideHomeFragmentPresenter() {
-        return new HomeFragmentPresenter(mainActivity);
+    HomeFragmentViewModel provideHomeFragmentViewModel() {
+        return homeFragmentViewModel;
     }
 
     @Provides
     @ActivityScope
     DestinationsListAdapter provideDestinationsListAdapter() {
-        return new DestinationsListAdapter(mainActivity, homeFragmentPresenter);
+        return new DestinationsListAdapter(mainActivity, homeFragmentViewModel);
     }
-
-//    @Provides
-//    @ActivityScope
-//    MainViewModel provideMainViewModel() {
-//        return new MainViewModel(mainActivity, mainPresenter);
-//    }
 
 }

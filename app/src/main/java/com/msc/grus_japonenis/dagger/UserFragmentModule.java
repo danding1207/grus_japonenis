@@ -1,10 +1,10 @@
-package com.msc.grus_japonenis.main.userfragment;
+package com.msc.grus_japonenis.dagger;
 
 import com.msc.grus_japonenis.lib.injection.ActivityScope;
 import com.msc.grus_japonenis.main.MainActivity;
-import com.msc.grus_japonenis.main.homefragment.DestinationsListAdapter;
-import com.msc.grus_japonenis.main.homefragment.HomeFragment;
-
+import com.msc.grus_japonenis.main.userfragment.UserFragment;
+import com.msc.grus_japonenis.main.userfragment.UserFragmentPresenter;
+import com.msc.grus_japonenis.main.userfragment.UserFragmentViewModel;
 import dagger.Module;
 import dagger.Provides;
 

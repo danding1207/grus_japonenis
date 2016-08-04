@@ -1,7 +1,8 @@
-package com.msc.grus_japonenis.search;
+package com.msc.grus_japonenis.dagger;
 
 import com.msc.grus_japonenis.lib.injection.ActivityScope;
-
+import com.msc.grus_japonenis.search.SearchActivity;
+import com.msc.grus_japonenis.search.SearchViewModel;
 import dagger.Module;
 import dagger.Provides;
 
@@ -12,12 +13,10 @@ import dagger.Provides;
 public class SearchActivityModule {
 
     private SearchActivity searchActivity;
-    private SearchPresenter mainPresenter;
 
 
     public SearchActivityModule(SearchActivity searchActivity) {
         this.searchActivity = searchActivity;
-        mainPresenter = new SearchPresenter(searchActivity);
     }
 
     @Provides
@@ -28,14 +27,8 @@ public class SearchActivityModule {
 
     @Provides
     @ActivityScope
-    SearchPresenter provideSearchPresenter() {
-        return mainPresenter;
-    }
-
-    @Provides
-    @ActivityScope
     SearchViewModel provideSearchViewModel() {
-        return new SearchViewModel(searchActivity, mainPresenter);
+        return new SearchViewModel(searchActivity);
     }
 
 }
