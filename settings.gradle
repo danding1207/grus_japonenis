@@ -1,1 +1,1 @@
-include ':app', ':lib.injection', ':lib.net', ':lib.widget', ':lib.utils',  ':lib.lintrules-aar'
+include ':app', ':lib.injection', ':lib.net', ':lib.widget', ':lib.utils', ':lib.lintrules-aar' , ':lib.tinker', ':'

@@ -4,9 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Grus_japonenis.iml" filepath="$PROJECT_DIR$/Grus_japonenis.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/buildsrc/buildsrc.iml" filepath="$PROJECT_DIR$/buildsrc/buildsrc.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.injection/lib.injection.iml" filepath="$PROJECT_DIR$/lib.injection/lib.injection.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.lintrules-aar/lib.lintrules-aar.iml" filepath="$PROJECT_DIR$/lib.lintrules-aar/lib.lintrules-aar.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.net/lib.net.iml" filepath="$PROJECT_DIR$/lib.net/lib.net.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib.tinker/lib.tinker.iml" filepath="$PROJECT_DIR$/lib.tinker/lib.tinker.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.utils/lib.utils.iml" filepath="$PROJECT_DIR$/lib.utils/lib.utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.widget/lib.widget.iml" filepath="$PROJECT_DIR$/lib.widget/lib.widget.iml" />
     </modules>

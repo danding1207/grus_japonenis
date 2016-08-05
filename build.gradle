@@ -7,8 +7,8 @@ buildscript {
         maven { url "http://dl.bintray.com/dodola/maven" }
     }
     dependencies {
-//        classpath 'com.android.tools.build:gradle:1.2.3'
-        classpath 'com.android.tools.build:gradle:2.2.0-alpha7'
+        classpath 'com.android.tools.build:gradle:2.1.2'
+//        classpath 'com.android.tools.build:gradle:2.2.0-alpha7'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.5'
         classpath "net.rdrei.android.buildtimetracker:gradle-plugin:0.8.+"
@@ -43,7 +43,7 @@ ext {
     buildToolsVersion = '23.0.2'
     // App dependencies
     supportLibraryVersion = '23.4.0'
-    guavaVersion = '18.0'
+    guavaVersion = '19.0'
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
     powerMockito = '1.6.2'

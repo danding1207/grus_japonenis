@@ -10,9 +10,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/buildsrc" />
             <option value="$PROJECT_DIR$/lib.injection" />
             <option value="$PROJECT_DIR$/lib.lintrules-aar" />
             <option value="$PROJECT_DIR$/lib.net" />
+            <option value="$PROJECT_DIR$/lib.tinker" />
             <option value="$PROJECT_DIR$/lib.utils" />
             <option value="$PROJECT_DIR$/lib.widget" />
           </set>

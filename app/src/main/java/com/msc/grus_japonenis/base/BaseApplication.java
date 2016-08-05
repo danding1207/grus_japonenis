@@ -2,7 +2,10 @@ package com.msc.grus_japonenis.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDexApplication;
 import android.view.inputmethod.InputMethodManager;
+
+import com.dim.library.Tinker;
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
 import com.msc.grus_japonenis.lib.injection.ApplicationModule;
 import com.msc.grus_japonenis.lib.injection.DaggerApplicationComponent;
