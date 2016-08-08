@@ -72,7 +72,7 @@ public class PublishViewModel extends BaseObservable implements ViewModel, DateP
 
     @Override
     public void onStart() {
-        setDate("旅行日期");
+        setDate("旅行----日期");
     }
 
     @Override
