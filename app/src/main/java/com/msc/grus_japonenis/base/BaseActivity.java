@@ -17,14 +17,14 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 
 import com.msc.grus_japonenis.lib.injection.ApplicationComponent;
+import com.msc.lib.utils.ScreenManager;
 
+import autogo.internal.AutoAssigner;
+import autogo.internal.AutoAssistantManager;
 import me.majiajie.swipeback.SwipeBackActivity;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
-
-//    private LoadingDialog loadingDialog;
-//    public int mDayNightMode = AppCompatDelegate.MODE_NIGHT_AUTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        BaseActivity.colorChange(this, Color.parseColor("#44000000"));
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         setupActivityComponent(BaseApplication.get().getComponent());
-//        ScreenManager.getScreenManager().pushActivity(this);
+//        Auto.assign(this);
+        ScreenManager.getScreenManager().pushActivity(this);
     }
 
     public abstract int setContentViewIds();
@@ -42,38 +43,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        ScreenManager.getScreenManager().popActivity(this);
+        ScreenManager.getScreenManager().popActivity(this);
     }
-
-    DialogInterface.OnKeyListener keyListener = new DialogInterface.OnKeyListener() {
-        @Override
-        public boolean onKey(DialogInterface dialog, int keyCode,
-                             KeyEvent event) {
-            if (keyCode == KeyEvent.KEYCODE_HOME
-                    || keyCode == KeyEvent.KEYCODE_BACK) {
-
-//                dismissRoundProcessDialog();
-                return true;
-            }
-            return false;
-        }
-    };
-
-//    public void showRoundProcessDialog() {
-//        if (loadingDialog == null) {
-//            loadingDialog = new LoadingDialog(this);
-//            loadingDialog.setOnKeyListener(keyListener);
-//            loadingDialog.setCanceledOnTouchOutside(false);
-//        }
-//        loadingDialog.show();
-//    }
-//
-//    public void dismissRoundProcessDialog() {
-//        if (loadingDialog == null)
-//            loadingDialog = new LoadingDialog(this);
-//        if (loadingDialog.isShowing())
-//            loadingDialog.dismiss();
-//    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override

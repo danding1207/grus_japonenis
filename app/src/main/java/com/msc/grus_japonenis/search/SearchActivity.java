@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+
+import com.autogo.annotation.IntentValue;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.jakewharton.rxbinding.widget.TextViewTextChangeEvent;
 import com.msc.grus_japonenis.R;
@@ -20,6 +22,9 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 
 public class SearchActivity extends BaseSwipeBackActivity{
+
+    @IntentValue("destinationid") int destinationid;
+    @IntentValue("destinationname") String destinationname;
 
     @Inject
     SearchViewModel mViewModel;
