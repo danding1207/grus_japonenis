@@ -1,225 +1,37 @@
-```sequence
+# Grus Japonenis
 
-Note right of 用户: 缴纳气费、营业费、水费
+标签（空格分隔）： MVVM RXJAVA LINT DEAGGER2
 
-用户->柜员: 缴纳气费、营业费、水费
+---
 
-柜员->POS机: 登录后选择 缴纳气费、营业费、水费
+## 1,Lint
+    Android Lint是Google提供给Android开发者的静态代码检查工具。使用Lint对Android工程代码进行扫描和检查，可以发现代码潜在的问题，提醒程序员及早修正。
 
-POS机->交易宝: 查询 气费、营业费、水费
+### 1，原始的自定义Lint代码位于 **lib.lintrules** 目录，这是一个Java项目。
 
-交易宝->TCIS: 查询 气费、营业费、水费
+ 1. Detector类负责扫描代码，发现问题并报告；
+ 2. Issue类由Detector发现并报告，是Android程序代码可能存在的bug；
+ 3. Category类指定问题的类别；
+ 4. IssueRegistry类提供需要被检测的Issue列表。
 
-TCIS-->交易宝: 欠费信息
+在project目录下执行 **gradlew lib.lintrules:assemble**（windows）或 **./gradlew lib.lintrules:assemble**（Linux）命令， 生成jar文件到 **lib.lintrules/build/libs/lib.lintrules.jar**路径。
 
-交易宝-->POS机: 展示欠费信息
 
-用户->柜员:  缴费或预存金额
+### 2，**lib.lintrules-jar**是Android Library项目，负责将jar文件生成aar文件。
 
-柜员->POS机: 输入缴费金额
+在project目录下执行 **gradlew lib.lintrules-jar:assemble**（windows）或 **./gradlew lib.lintrules-jar:assemble**（Linux）命令， 生成aar文件到 **lib.lintrules/build/outputs/aar/lib.lintrules-jar-release.aar**路径。
 
-POS机->交易宝: 下单
+### 3，**lib.lintrules-aar**是导入aar库，其他module依赖这个库
 
+将上面生成的aar文件复制到 **lib.lintrules-aar/lib.lintrules-jar-release.aar**路径。
 
-交易宝-->POS机: 下单成功，支付界面，选择支付方式
-
-Note right of 柜员:选择 收款二维码
-
-柜员->POS机:  选择 收款二维码
-
-POS机->交易宝: 请求收款二维码
-
-交易宝->威富通: 请求收款二维码
-
-威富通-->交易宝: 返回收款二维码
-
-交易宝-->POS机: 展示收款二维码
-
-用户->威富通:微信扫描 收款二维码 并支付
-
-威富通-->交易宝: 返回支付状态
-
-交易宝->TCIS:  支付成功 通知 TCIS 缴费
-
-Note right of TCIS:缴费成功
-
-TCIS-->交易宝:  缴费成功
-
-交易宝-->POS机: 展示订单 状态，打印凭条
-Note right of POS机: IC卡用户 可以选择写卡操作
-POS机->交易宝: 读取物理卡号信息 请求读卡指令
-交易宝->TCIS:  请求读卡指令
-TCIS-->交易宝:  根据 物理卡号信息 调取不同厂家密钥 组成读卡指令
-交易宝-->POS机: 返回读卡指令
-POS机->IC卡: 发送 读卡指令
-IC卡-->POS机: 返回 读卡信息
-POS机->交易宝: 读取物理卡号信息 请求圈存指令
-交易宝->TCIS:  请求圈存指令
-TCIS-->交易宝:  根据 物理卡号信息 调取不同厂家密钥 组成圈存指令
-交易宝-->POS机: 返回圈存指令
-POS机->IC卡: 发送 圈存指令
-IC卡-->POS机: 返回 圈存信息
-POS机->交易宝: 圈存成功 ，修改订单状态
-交易宝->TCIS:  IC卡数据回抄
-
-
-Note right of TCIS:缴费失败
-
-TCIS-->交易宝:  缴费失败
-
-交易宝->威富通:  发起退款
-
-交易宝-->POS机: 展示订单 状态 
-
-交易宝--POS机: 展示订单 状态 
-
-
-Note right of 柜员:选择 扫码付款
-柜员->POS机:  选择 扫码付款， POS 机跳转至扫码界面
-用户->POS机:  用户展示付款二维码，由 POS 机扫描
-POS机->威富通:  通过二维码信息 扣款支付
-威富通-->交易宝: 返回支付状态
-
-交易宝->TCIS:  支付成功 通知 TCIS 缴费
-
-Note right of TCIS:缴费成功
-
-TCIS-->交易宝:  缴费成功
-
-交易宝-->POS机: 展示订单 状态，打印凭条
-Note right of POS机: IC卡用户 可以选择写卡操作
-POS机->交易宝: 读取物理卡号信息 请求读卡指令
-交易宝->TCIS:  请求读卡指令
-TCIS-->交易宝:  根据 物理卡号信息 调取不同厂家密钥 组成读卡指令
-交易宝-->POS机: 返回读卡指令
-POS机->IC卡: 发送 读卡指令
-IC卡-->POS机: 返回 读卡信息
-POS机->交易宝: 读取物理卡号信息 请求圈存指令
-交易宝->TCIS:  请求圈存指令
-TCIS-->交易宝:  根据 物理卡号信息 调取不同厂家密钥 组成圈存指令
-交易宝-->POS机: 返回圈存指令
-POS机->IC卡: 发送 圈存指令
-IC卡-->POS机: 返回 圈存信息
-POS机->交易宝: 圈存成功 ，修改订单状态
-交易宝->TCIS:  IC卡数据回抄
-
-
-Note right of TCIS:缴费失败
-
-TCIS-->交易宝:  缴费失败
-
-交易宝->威富通:  发起退款
-
-交易宝-->POS机: 展示订单 状态 
-
-交易宝--POS机: 展示订单 状态 
-
-
-
-Note right of 用户: 缴纳其他费用
-
-用户->柜员: 缴纳其他费用
-
-柜员->POS机: 登录后选择 缴纳其他费用
-
-用户->柜员:  缴费或预存金额
-
-柜员->POS机: 输入缴费金额
-
-POS机->交易宝: 下单
-
-交易宝-->POS机: 下单成功，支付界面，选择支付方式
-
-Note right of 柜员:选择 收款二维码
-
-柜员->POS机:  选择 收款二维码
-
-POS机->交易宝: 请求收款二维码
-
-交易宝->威富通: 请求收款二维码
-
-威富通-->交易宝: 返回收款二维码
-
-交易宝-->POS机: 展示收款二维码
-
-用户->威富通:微信扫描 收款二维码 并支付
-
-威富通-->交易宝: 返回支付状态
-
-交易宝->TCIS:  支付成功 通知 TCIS 缴费
-
-Note right of TCIS:缴费成功
-
-TCIS-->交易宝:  缴费成功
-
-交易宝-->POS机: 展示订单 状态，打印凭条
-Note right of POS机: IC卡用户 可以选择写卡操作
-POS机->交易宝: 读取物理卡号信息 请求读卡指令
-交易宝->TCIS:  请求读卡指令
-TCIS-->交易宝:  根据 物理卡号信息 调取不同厂家密钥 组成读卡指令
-交易宝-->POS机: 返回读卡指令
-POS机->IC卡: 发送 读卡指令
-IC卡-->POS机: 返回 读卡信息
-POS机->交易宝: 读取物理卡号信息 请求圈存指令
-交易宝->TCIS:  请求圈存指令
-TCIS-->交易宝:  根据 物理卡号信息 调取不同厂家密钥 组成圈存指令
-交易宝-->POS机: 返回圈存指令
-POS机->IC卡: 发送 圈存指令
-IC卡-->POS机: 返回 圈存信息
-POS机->交易宝: 圈存成功 ，修改订单状态
-交易宝->TCIS:  IC卡数据回抄
-
-
-Note right of TCIS:缴费失败
-
-TCIS-->交易宝:  缴费失败
-
-交易宝->威富通:  发起退款
-
-交易宝-->POS机: 展示订单 状态 
-
-交易宝--POS机: 展示订单 状态 
-
-
-Note right of 柜员:选择 扫码付款
-柜员->POS机:  选择 扫码付款， POS 机跳转至扫码界面
-用户->POS机:  用户展示付款二维码，由 POS 机扫描
-POS机->威富通:  通过二维码信息 扣款支付
-威富通-->交易宝: 返回支付状态
-
-交易宝->TCIS:  支付成功 通知 TCIS 缴费
-
-Note right of TCIS:缴费成功
-
-TCIS-->交易宝:  缴费成功
-
-交易宝-->POS机: 展示订单 状态，打印凭条
-Note right of POS机: IC卡用户 可以选择写卡操作
-POS机->交易宝: 读取物理卡号信息 请求读卡指令
-交易宝->TCIS:  请求读卡指令
-TCIS-->交易宝:  根据 物理卡号信息 调取不同厂家密钥 组成读卡指令
-交易宝-->POS机: 返回读卡指令
-POS机->IC卡: 发送 读卡指令
-IC卡-->POS机: 返回 读卡信息
-POS机->交易宝: 读取物理卡号信息 请求圈存指令
-交易宝->TCIS:  请求圈存指令
-TCIS-->交易宝:  根据 物理卡号信息 调取不同厂家密钥 组成圈存指令
-交易宝-->POS机: 返回圈存指令
-POS机->IC卡: 发送 圈存指令
-IC卡-->POS机: 返回 圈存信息
-POS机->交易宝: 圈存成功 ，修改订单状态
-交易宝->TCIS:  IC卡数据回抄
-
-
-Note right of TCIS:缴费失败
-
-TCIS-->交易宝:  缴费失败
-
-交易宝->威富通:  发起退款
-
-交易宝-->POS机: 展示订单 状态 
-
-交易宝--POS机: 展示订单 状态 
-
-
+```JAVA
+dependencies {
+    ...
+    compile project(':lib.lintrules-aar')
+    ...
+}
 ```
+
+
+
